@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# database connection
+config.php
+
 # testing
 /coverage
 

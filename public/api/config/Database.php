@@ -1,15 +1,20 @@
 <?php
     class Database {
         //Database Parameters
-        private $host = "94.154.12.56";
-        private $db_name = "superstore";
-        private $username = "superstore";
-        private $password = "wewrDMijWFA0yxZH";
+        private $host;
+        private $db_name;
+        private $username;
+        private $password;
         private $conn;
         
 
         //Database connect 
         public function connect() {
+            include_once 'config.php';
+            $this->host = $host;
+            $this->db_name = $db_name;
+            $this->username = $username;
+            $this->password = $password;
             $this->conn = null;
 
             try {
