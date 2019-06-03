@@ -1,0 +1,16 @@
+.header {
+    display: flex;
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 28px;
+    background-color: white;
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+}
+.container-column {
+    flex-direction: column;
+}

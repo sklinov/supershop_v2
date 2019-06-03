@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/proxima nova regular.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/proxima nova semibold.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/fonts/proxima nova bold.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/proxima nova light.otf');
+}
+
+@font-face {
+  font-family: 'Proxima Nova';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/fonts/proxima nova thin.otf');
+}
+
+@font-face {
+    font-family: 'Supermolot';
+    src: url('/fonts/Supermolot.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Thin';
+    src: url('/fonts/Supermolot Thin.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Thin Italic';
+    src: url('/fonts/Supermolot Thin Italic.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Light';
+    src: url('/fonts/Supermolot Light.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Light Italic';
+    src: url('/fonts/Supermolot Light Italic.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Italic';
+    src: url('/fonts/Supermolot Italic.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Bold';
+    src: url('/fonts/Supermolot Bold.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Bold Italic';
+    src: url('/fonts/Supermolot Bold Italic.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Black';
+    src: url('/fonts/Supermolot Black.otf'); 
+}
+
+@font-face {
+    font-family: 'Supermolot Black Italic';
+    src: url('/fonts/Supermolot Black Italic.otf'); 
+}
+
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/MaterialIcons-Regular.eot'); /* For IE6-8 */
+  src: local('Material Icons'),
+    local('MaterialIcons-Regular'),
+    url('/fonts/MaterialIcons-Regular.woff2') format('woff2'),
+    url('/fonts/MaterialIcons-Regular.woff') format('woff'),
+    url('/fonts/MaterialIcons-Regular.ttf') format('truetype');
+}

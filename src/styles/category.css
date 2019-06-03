@@ -1,0 +1,65 @@
+.category__container {
+    display: flex;
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+
+}
+
+.category__header {
+    font-family: 'Supermolot';
+    font-weight: 200;
+    font-style: italic;
+    font-size: 72px;
+    flex-grow: 1;
+    text-align: left;
+}
+.category__descrption {
+
+}
+.category__items {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.category__item {
+    width: 290px;
+    height: 325px;
+    background-color: white;
+    text-align: initial;
+    border-width: 1px;
+    border-color: #f6f6f6;
+    border-style: solid;
+    border-collapse: collapse;
+    margin: 0px;
+}
+.item__details {
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+.item__name {
+    
+}
+.item__price {
+    color: #ed1651;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    float: right;  
+
+}
+
+.item__imagebox {
+    width: 292px;
+    height: 236px;
+   
+
+}
+.item__image {
+    width: 292px;
+    height: 236px;
+    object-fit: contain;
+}

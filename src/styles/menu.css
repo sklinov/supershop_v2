@@ -1,0 +1,16 @@
+.menu {
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+}
+.menu__item {
+    align-self: flex-start;
+    text-transform: uppercase;
+    background-color: white;
+    cursor: pointer;
+    padding: 25px;
+}
+.menu__item:hover {
+    background-color: #021563;
+    color: white;
+}

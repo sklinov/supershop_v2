@@ -1,0 +1,17 @@
+.logo__container {
+    background-color: #ed1651;
+    text-align: center;
+    width: 170px;
+    height: 60px;
+    color: white;
+    padding: 30px;
+    text-transform: uppercase;
+    line-height: 30px;
+}
+.logo__firstline {
+    font-size: 33px;
+}
+.logo__secondline {
+    font-size: 41px;
+    font-weight: 600;
+}

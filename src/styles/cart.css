@@ -1,0 +1,48 @@
+.cart__container {
+    background-color: white;
+    padding: 0;
+}
+.cart__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart__tableheader {
+    border-bottom: 2px solid #f6f6f6;
+    font-size: 14px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.cart__row {
+    border-bottom: 2px solid #f6f6f6;
+}
+
+
+.cart__img {
+    max-width: 170px;
+    max-height: 140px;
+}
+.cart__name {
+
+}
+.cart__available {
+    color: #ed1651;
+}
+.cart__price {
+    font-style: italic;
+}
+
+.cart__producttotal {
+    font-weight: 700;
+    font-style: italic;
+}
+
+.cart__total {
+    font-size: 25px;
+    font-weight: 700;
+    font-style: italic;
+}
+
+
+
+
