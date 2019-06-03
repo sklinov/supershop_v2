@@ -6,6 +6,7 @@
         private $username = "superstore";
         private $password = "wewrDMijWFA0yxZH";
         private $conn;
+        
 
         //Database connect 
         public function connect() {
