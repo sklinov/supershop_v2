@@ -13,8 +13,39 @@ export default class CartInHeader extends Component {
 
   render() {
     return (
-      <div>
-        <Link to="/shop/cart/">Cart</Link>
+      <div className="cart-h">
+        
+        <Link to="/shop/cart/">
+        <Consumer>
+        {
+          value => {
+            const {inCart, inCartTotal} = value;
+            // If cart is empty
+            if(inCart === undefined || inCart.length === 0) {
+              return (
+                <React.Fragment>
+                <div className="cart-h-empty">
+                  Корзина пуста
+                </div>
+                </React.Fragment>   
+              )  
+            } else {
+              return (
+                <React.Fragment>
+                  <div className="cart-h-total">
+                    {inCartTotal} руб.
+                  </div>
+                  <div className="cart-h-quantity">
+                    {inCart.length} позиции 
+                  </div>
+                </React.Fragment>
+              ) 
+            }
+          }
+        }
+        </Consumer>
+        </Link>
+        
       </div>
     )
   }

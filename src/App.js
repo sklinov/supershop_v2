@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route } from "react-router-dom";
 import { createBrowserHistory} from "history";
+import { CookiesProvider, withCookies } from 'react-cookie'
 import './App.css';
 
 import Admin from "./components/admin/Admin"
@@ -18,21 +19,23 @@ class App extends Component {
    
   render() {
     return (
-      <Provider>
-        <Router history={history}>
-          <div className="App">         
-            <Route path="/admin/" component={Admin} />
-            <Route path="/shop/" component={Shop}>
-                {/* <Header match={this.props.match} />
-                <Route exact path="/" component={Category} />
-                <Route path="category/:id" component={Category} />
-                <Route path="product/:id" component={Product} /> */}
-            </Route>    
-          </div>
-        </Router>
-      </Provider>
+      <CookiesProvider>
+        <Provider>
+          <Router history={history}>
+            <div className="App">         
+              <Route path="/admin/" component={Admin} />
+              <Route path="/shop/" component={Shop}>
+                  {/* <Header match={this.props.match} />
+                  <Route exact path="/" component={Category} />
+                  <Route path="category/:id" component={Category} />
+                  <Route path="product/:id" component={Product} /> */}
+              </Route>    
+            </div>
+          </Router>
+        </Provider>
+      </CookiesProvider>
     );
   }
 }
 
-export default App;
+export default withCookies(App);

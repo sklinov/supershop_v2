@@ -44,7 +44,7 @@ export default class Product extends Component {
                 if(products === undefined || products.length === 0) {
                     return <Spinner />
                 } else {
-                    
+
                     const product = products.find(prod => prod.id === this.state.productId)
                   
                     return (
@@ -82,8 +82,8 @@ export default class Product extends Component {
                                 }
                                 </div>
                                           
-                                <button className="button__addtocart" onClick={this.addToCart.bind(this, dispatch, product)}>
-                                    {buttonLabel} {numberInCart}
+                                <button className="button-primary" onClick={this.addToCart.bind(this, dispatch, product)}>
+                                    {buttonLabel}
                                 </button>
                                 
                             </div>

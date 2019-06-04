@@ -15,8 +15,10 @@ export default class Header extends Component {
             <div className="header">
               <Logo />
               <Menu match={this.props.match}/>
-              <Login />
-              <CartInHeader />
+              <div className="container-column">
+                <Login />
+                <CartInHeader />
+              </div>
             </div>
         )
     }

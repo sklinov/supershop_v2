@@ -4,37 +4,93 @@ import axios from 'axios'
 const Context = React.createContext();
 
 const reducer = (state, action) => {
+  let inCart;
   switch(action.type) {
     case 'ADD_TO_CART':
-      // console.log(state.inCart);
-      // console.log(action.payload);
-//      var grouped = groupProducts(state.inCart,action.payload);
-//      console.log(grouped);
-      return {
-        ...state,
-   //     inCart: [...state.inCart, action.payload]
-        inCart : groupProducts(state.inCart,action.payload)
-      };
-      default:
+        inCart = groupProducts(state.inCart,action.payload);
+        return {
+          ...state,
+          inCart : inCart, 
+          inCartTotal: updateTotal(inCart)
+        };
+    case 'PLUS_ONE':
+        inCart = plusOne(state.inCart,action.payload);
+        return {
+          ...state,
+          inCart : inCart, 
+          inCartTotal: updateTotal(inCart)
+        };
+    case 'MINUS_ONE':
+        inCart = minusOne(state.inCart,action.payload);
+        return {
+          ...state,
+          inCart : inCart, 
+          inCartTotal: updateTotal(inCart)
+        };
+    case 'REMOVE_FROM_CART':
+        inCart = removeFromCart(state.inCart,action.payload);
+        return {
+          ...state,
+          inCart : inCart, 
+          inCartTotal: updateTotal(inCart)
+        };  
+    default:
         return state;
   }; 
 };
 
 var groupProducts = (inCart, payload) => {
- // console.log(inCart);
-//  console.log(payload);
-
   const index = inCart.indexOf(payload);
- // console.log(index);
-  
+  // If product is in cart alrady - increment it's quantity
   if(index !== -1){
     inCart[index].number++;  
-  } else {
+  } else { //If product is not in cart - then set it's quantity to 1 and add it to cart
     payload.number = 1; 
     inCart = [...inCart, payload];
   }
-  console.log(inCart);
   return inCart;
+}
+
+var plusOne = (inCart, payload) => {
+  const index = inCart.indexOf(payload);
+  // If product is in cart alrady - increment it's quantity
+  if(index !== -1){
+    inCart[index].number++;  
+  } 
+  return inCart;
+}
+
+var minusOne = (inCart, payload) => {
+  const index = inCart.indexOf(payload);
+  // If product is in cart already - decrease it's quantity
+  if(index !== -1){
+    if(inCart[index].number>=2) {
+      inCart[index].number--;
+    }
+    else {
+      inCart = removeFromCart(inCart, payload);
+    }
+  } 
+  return inCart;
+}
+
+var removeFromCart = (inCart, payload) => {
+  const index = inCart.indexOf(payload);
+  if(index !== -1){
+    inCart.splice(index,1);  
+  } 
+  return inCart;
+}
+
+
+var updateTotal = (inCart) => {
+  if(inCart !== undefined || inCart.length !== 0)
+  {
+    const newTotal = inCart.reduce( (total, item) => {
+      return total+item.price*item.number 
+    }, 0);
+    return newTotal;
+  }
 }
 
 class Provider extends Component {
@@ -45,6 +101,7 @@ class Provider extends Component {
           categoryId: 0,
           products: [],
           inCart: [],
+          inCartTotal: 0,
           dispatch: action => this.setState( state => reducer(state,action))         
         };
     }
@@ -55,7 +112,9 @@ class Provider extends Component {
     componentDidMount() {
         this.getAllCategories();
         this.getProductsByCategoryId();
-        }
+    }
+    
+   
     
     getAllCategories = () => {
       const url = "http://localhost/supershop/public/api/api/categories/categories.php";

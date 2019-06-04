@@ -42,6 +42,44 @@
     font-weight: 700;
     font-style: italic;
 }
+.cart__buttoncontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.cart-h {
+    background-color: #021563;
+    width: 194px;
+    height: 62px;
+    background-image: url('/img/cart.png');
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
+    text-align: left;
+    padding-top: 20px;
+}
+.cart-h-total {
+    color: white;
+    font-family: 'SuperMolot';
+    font-weight: 600;
+    font-size: 20px;
+    padding-left: 10px;
+}
+.cart-h-quantity {
+    color: #999999;
+    font-size: 12px;
+    font-weight: 300;
+    padding-left: 10px;
+}
+.cart-h-empty {
+    color: white;
+    font-family: 'SuperMolot';
+    font-weight: 600;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-left: 10px;
+}
 
 
 

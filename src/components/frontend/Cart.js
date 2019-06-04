@@ -4,9 +4,38 @@ import {Consumer} from '../../Context'
 export default class Cart extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            cartTotal: 0
+        };
     }
+    
+    
+    plusOne = (dispatch, product, e ) => {
+        e.preventDefault();
+        dispatch({
+            type: 'PLUS_ONE',
+            payload: product
+        });   
+    }
+    
+    minusOne = (dispatch, product, e ) => {
+        e.preventDefault();
+        dispatch({
+            type: 'MINUS_ONE',
+            payload: product
+        });   
+    }
+
+    removeFromCart = (dispatch, product, e ) => {
+        e.preventDefault();
+        dispatch({
+            type: 'REMOVE_FROM_CART',
+            payload: product
+        });   
+    }
+       
     render() {
+        
         return (
             <div className="category__container">
                 <h1 className="category__header">Корзина</h1>
@@ -14,12 +43,13 @@ export default class Cart extends Component {
                 <Consumer>
                 {   
                     value => {
-                        const { inCart } = value;
+                        const { inCart, inCartTotal, dispatch } = value;
                         if( inCart === undefined || inCart.length === 0) {
                             return ( <h3>Ваша корзина пуста</h3> )
                         }
                         else {
                             return (
+                                <React.Fragment>
                                 <table className="cart__table">
                                     <thead className="cart__tableheader">
                                         <tr>
@@ -34,42 +64,55 @@ export default class Cart extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                {
-                                    inCart.map(item => {
-                                    return(
-                                    //Each item in cart
-                                    <tr key={item.id} className="cart__row">
-                                        <td className="cart__img">
-                                            <img src={"/img/product/"+item.image_url} alt={item.name} className="cart__img" />
-                                        </td>
-                                        <td className="cart__name">
-                                            {item.name}
-                                        </td>
-                                        <td className="cart__available">
-                                            Есть в наличии
-                                        </td>
-                                        <td className="cart__price">
-                                            {item.price}
-                                        </td>
-                                        <td>
-                                            <button>-</button>
-                                            <button>{item.number}</button>
-                                            <button>+</button>
-                                        </td>
-                                        <td className="cart__producttotal">
-                                            {item.price*item.number}руб.
-                                        </td>
-                                        <td>
-                                            <button>X</button>
-                                        </td>
-                                          
-                                    </tr>
+                                    {   
+                                        inCart.map(item => {
+                                        return(
+                                        //Each item in cart
+                                        <tr key={item.id} className="cart__row">
+                                            <td className="cart__img">
+                                                <img src={"/img/product/"+item.image_url} alt={item.name} className="cart__img" />
+                                            </td>
+                                            <td className="cart__name">
+                                                {item.name}
+                                            </td>
+                                            <td className="cart__available">
+                                                Есть в наличии
+                                            </td>
+                                            <td className="cart__price">
+                                                {item.price}
+                                            </td>
+                                            <td>
+                                                <button className="button button-formcontrol" onClick={this.minusOne.bind(this, dispatch, item)}>-</button>
+                                                <button className="button button-formcontrol button-formcontrolblack">{item.number}</button>
+                                                <button className="button button-formcontrol" onClick={this.plusOne.bind(this, dispatch, item)}>+</button>
+                                            </td>
+                                            <td className="cart__producttotal">
+                                                {item.price*item.number}руб.
+                                            </td>
+                                            <td>
+                                                <button className="button button-formcontrol button-formcontrolround" onClick={this.removeFromCart.bind(this, dispatch, item)}>
+                                                    &times;
+                                                </button>
+                                            </td>
+                                            
+                                        </tr>
+                                        
+                                        )
+                                    })
                                     
-                                    )
-                                })
-                                }
-                                </tbody>
+                                    }
+                                    </tbody>
                                 </table>
+                                <div className="cart__buttoncontainer">
+                                    <div></div>
+                                    <div className="cart__total">{inCartTotal}</div>
+                                </div>
+                                <div className="cart__buttoncontainer">
+                                    <button className="button button-secondary"> Вернуться к покупкам </button>
+                                    <button className="button button-primary"> Оформить заказ </button>
+                                </div>
+                                </React.Fragment>
+                                  
                             )
                         }
                     }

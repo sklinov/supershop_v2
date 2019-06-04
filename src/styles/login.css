@@ -1,0 +1,17 @@
+.login__container {
+    width: 194px;
+    height: 44px;
+    padding-top: 25px;
+    background-color: white;
+}
+
+.login__enter {
+    color: red;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+}
+.login__register {
+    color: black;
+    text-decoration: underline;
+    text-decoration-style: dashed;
+}

@@ -2,6 +2,10 @@
     display: flex;
     flex-direction: row;
     margin-right: auto;
+    min-height: 62px;
+    max-height: max-content;
+    width: stretch;
+    background-color: white;
 }
 .menu__item {
     align-self: flex-start;
