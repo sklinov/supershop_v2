@@ -5,6 +5,8 @@ const Context = React.createContext();
 
 const reducer = (state, action) => {
   let inCart;
+  let user;
+  let loggedIn;
   switch(action.type) {
     case 'ADD_TO_CART':
         inCart = groupProducts(state.inCart,action.payload);
@@ -33,15 +35,52 @@ const reducer = (state, action) => {
           ...state,
           inCart : inCart, 
           inCartTotal: updateTotal(inCart)
-        };  
+        };
+    case 'USER_LOGIN': 
+        //var temp = userLogin(state.user,action.payload);
+        //console.log(temp);
+        return {
+          ...state,
+          user: userLogin(state.user,action.payload),
+          //loggedIn: temp.length> 0 ? true: false
+        };
     default:
         return state;
   }; 
 };
 
+var userLogin = (user, payload) => {
+  
+  const url = "/api/users/login.php";
+  console.log(payload);
+  fetch(url,{
+    method: "POST",
+    body: JSON.stringify(payload)
+  })
+      .then(response => response.json())
+      .then(
+      (result) => {
+          //user = result;
+          user.id = result.id;
+          user.name = result.name;
+          user.email = result.email;
+          user.phone = result.phone;
+          user.city = result.city;
+          user.street = result.street;
+          user.building = result.building;
+          user.flat = result.flat;
+         // console.log(user);         
+      },
+      (error) => {
+          console.log(error);
+      }); 
+  //console.log(user);
+  return user;
+}
+
 var groupProducts = (inCart, payload) => {
   const index = inCart.indexOf(payload);
-  // If product is in cart alrady - increment it's quantity
+  // If product is in cart already - increment it's quantity
   if(index !== -1){
     inCart[index].number++;  
   } else { //If product is not in cart - then set it's quantity to 1 and add it to cart
@@ -53,7 +92,7 @@ var groupProducts = (inCart, payload) => {
 
 var plusOne = (inCart, payload) => {
   const index = inCart.indexOf(payload);
-  // If product is in cart alrady - increment it's quantity
+  // If product is in cart already - increment it's quantity
   if(index !== -1){
     inCart[index].number++;  
   } 
@@ -102,6 +141,8 @@ class Provider extends Component {
           products: [],
           inCart: [],
           inCartTotal: 0,
+          user: [],
+          loggedIn: false,
           dispatch: action => this.setState( state => reducer(state,action))         
         };
     }
@@ -117,7 +158,7 @@ class Provider extends Component {
    
     
     getAllCategories = () => {
-      const url = "http://localhost/supershop/public/api/api/categories/categories.php";
+      const url = "/api/categories/categories.php"; 
       axios.get(url)
         .then(res => {
         const categories = res.data.data;
@@ -128,7 +169,7 @@ class Provider extends Component {
     }
 
     getProductsByCategoryId = () => {
-      const url = "http://localhost/supershop/public/api/api/products/products.php?category="+this.state.categoryId;
+      const url = "/api/products/products.php?category="+this.state.categoryId;
       axios.get(url)
         .then(res => {
         const products = res.data.data;

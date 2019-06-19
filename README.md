@@ -1,5 +1,6 @@
 This is a second version of a mock e-commerce project.
-Now I'm using React (with React-router for frontend) and PHP-based RESTAPI with MySQL database for backend.
+Now I'm using React (with React-router) for frontend and PHP-based RESTAPI with MySQL database for backend.
+Frontend is managed by React's Context API.
 
 ## Available Scripts
 

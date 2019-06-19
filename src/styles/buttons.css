@@ -1,5 +1,6 @@
 .button {
     border: none;
+    cursor: pointer;
 }
 .button:hover {
 
@@ -23,6 +24,8 @@
     background-color: black;
     color: white;
     padding: 20px 20px 20px 20px;
+    font-family: 'Supermolot';
+    font-weight: 300;
 }
 
 .button-formcontrol {
@@ -35,6 +38,7 @@
 }
 .button-formcontrolblack { 
     color: black;
+    cursor: initial;
 }
 .button-formcontrolround {
     height: 47px;

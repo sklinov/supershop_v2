@@ -4,6 +4,7 @@ import Header from '../frontend/Header'
 import Category from '../frontend/Category'
 import Product from '../frontend/Product'
 import Cart from '../frontend/Cart'
+import Checkout from '../frontend/Checkout'
 
 export default class Shop extends Component {
     constructor(props) {
@@ -20,6 +21,7 @@ export default class Shop extends Component {
                     <Route path={`${this.props.match.url}/category/:id`} component={Category} />
                     <Route path={`${this.props.match.url}/product/:id`} component={Product} />
                     <Route path={`${this.props.match.url}/cart`} component={Cart} />
+                    <Route path={`${this.props.match.url}/checkout`} component={Checkout} />
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Menu from '../frontend/Menu'
 import Logo from '../frontend/Logo';
-import Login from '../frontend/Login';
+import LoginHeader from '../frontend/LoginHeader';
 import CartInHeader from '../frontend/CartInHeader';
 import '../../styles/header.css'; 
 
@@ -16,7 +16,7 @@ export default class Header extends Component {
               <Logo />
               <Menu match={this.props.match}/>
               <div className="container-column">
-                <Login />
+                <LoginHeader />
                 <CartInHeader />
               </div>
             </div>

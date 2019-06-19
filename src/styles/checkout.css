@@ -1,0 +1,31 @@
+.checkout__container {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+.checkout__header {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ed1651;
+}
+.checkout__label {
+    font-size: 14px;
+    font-weight: 300;
+    color: #999999;
+    margin-top: 19px;
+    margin-bottom: 7px;
+}
+.checkout__input {
+    border: none;
+    background-color: #e9e9e9;
+    color: black;
+    height: 47px;
+    width: 391px;
+    padding-left: 17px;
+    font-family: 'SuperMolot';
+}
+.checkout__link {
+    margin-left: 23px;
+    font-size: 14px;
+    font-weight: 300;
+}

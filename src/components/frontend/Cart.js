@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Link } from "react-router-dom";
 import {Consumer} from '../../Context'
 
 export default class Cart extends Component {
@@ -79,7 +80,7 @@ export default class Cart extends Component {
                                                 Есть в наличии
                                             </td>
                                             <td className="cart__price">
-                                                {item.price}
+                                                {item.price} руб.
                                             </td>
                                             <td>
                                                 <button className="button button-formcontrol" onClick={this.minusOne.bind(this, dispatch, item)}>-</button>
@@ -87,7 +88,7 @@ export default class Cart extends Component {
                                                 <button className="button button-formcontrol" onClick={this.plusOne.bind(this, dispatch, item)}>+</button>
                                             </td>
                                             <td className="cart__producttotal">
-                                                {item.price*item.number}руб.
+                                                {item.price*item.number} руб.
                                             </td>
                                             <td>
                                                 <button className="button button-formcontrol button-formcontrolround" onClick={this.removeFromCart.bind(this, dispatch, item)}>
@@ -105,11 +106,11 @@ export default class Cart extends Component {
                                 </table>
                                 <div className="cart__buttoncontainer">
                                     <div></div>
-                                    <div className="cart__total">{inCartTotal}</div>
+                                    <div className="cart__total">Итого: {inCartTotal} руб.</div>
                                 </div>
                                 <div className="cart__buttoncontainer">
                                     <button className="button button-secondary"> Вернуться к покупкам </button>
-                                    <button className="button button-primary"> Оформить заказ </button>
+                                    <Link to="/shop/checkout"><button className="button button-primary"> Оформить заказ </button></Link>
                                 </div>
                                 </React.Fragment>
                                   

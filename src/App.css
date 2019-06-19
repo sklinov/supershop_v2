@@ -4,6 +4,8 @@
 @import url('styles/buttons.css');
 @import url('styles/login.css');
 @import url('styles/material-icons.css');
+@import url('styles/accordion.css');
+@import url('styles/checkout.css');
 
 body {
   margin: 0px;

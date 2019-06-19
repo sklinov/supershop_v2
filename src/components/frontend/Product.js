@@ -35,7 +35,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const { buttonLabel, numberInCart } = this.state;       
+        const { buttonLabel } = this.state;       
         return (
         <Consumer>
         {

@@ -10,12 +10,10 @@ export default class Category extends Component {
         this.state = {
           error: null,
           isLoaded: false,
-          categoryId: 0,
+          
         };
       }
-    componentWillMount() {
-        this.setState({categoryId : this.props.match.params.id}); 
-    }
+
     render() {
         return (
             <div className="category__container">
@@ -32,7 +30,14 @@ export default class Category extends Component {
                         } else {
                             return (
                                 products.filter(product => {
-                                   return product.id_category === this.state.categoryId
+                                   if(this.props.match.params.id !== undefined)
+                                   {
+                                    return product.id_category === this.props.match.params.id
+                                   }
+                                   else if(this.props.match.params.id === undefined)
+                                   {
+                                    return product 
+                                   } 
                                 }).map(product => {
                                     return (
                                     <Link to={"/shop/product/"+product.id} key={product.id}>
