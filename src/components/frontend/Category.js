@@ -34,7 +34,7 @@ export default class Category extends Component {
                                    {
                                     return product.id_category === this.props.match.params.id
                                    }
-                                   else if(this.props.match.params.id === undefined)
+                                   else //if(this.props.match.params.id === undefined)
                                    {
                                     return product 
                                    } 

@@ -20,11 +20,21 @@
         }
 
         public function userLogin() {
-            $query = "SELECT *
-                FROM ".$this->table."
-                WHERE email = '".$this->email."' AND
-                      password = '".$this->password."'";
-
+            $query = "SELECT id as id,
+                             name as name,
+                             password as hash,
+                             phone as phone, 
+                             email as email,
+                             city as city,
+                             street as steret, 
+                             building as building,
+                             flat as flat
+                FROM :table
+                WHERE email = :email" ;
+         
+           $stmt->bindParam(':table',$this->table);
+           $stmt->bindParam(':email',$this->email);
+           
            $stmt = $this->conn->prepare($query);
            $stmt->execute();
            return $stmt;

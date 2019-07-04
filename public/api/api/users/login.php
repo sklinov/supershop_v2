@@ -20,14 +20,62 @@
 
     //var_dump($_POST);
 
+    // if($user->email && $user->password)
+    // {
+    //     $result = $user->userLogin();
+    //     $temp = $result->fetchAll();
+    //     //$user->user_logged_in = $temp[0][0];
+    //     $_SESSION['user_id'] = $user->id;
+    // }
+
     if($user->email && $user->password)
-    {
+    {   
         $result = $user->userLogin();
-        $temp = $result->fetchAll();
-        //$user->user_logged_in = $temp[0][0];
-        $_SESSION['user_id'] = $user->id;
+        $num = $result->rowCount();
+
+        if($num > 0) {
+            $user_add = array();
+            $user_arr['data'] = array();
+            while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                extract($row);
+                $user_item = array (
+                    'id' => $id,
+                    'name' => $name,
+                    'hash' => $hash,
+                    'phone' => $phone,
+                    'email' => $email,
+                    'city' => $city,
+                    'street' => $street,
+                    'building' => $building,
+                    'flat' => $flat
+                );
+                //Проверка пароля
+                if(password_verify($user->password, $user_item['hash'])) {
+                    $_SESSION['user_id'] = $user_item['user_id'];
+                    $_SESSION['timeshift'] = $user_item['timeshift'];
+                    array_push($user_arr['data'],$user_item);
+                }
+            }
+            if(isset($user_arr['data'])) {
+                $user_arr['status'] = 'success';
+                echo json_encode($user_arr);
+            }
+            else {
+                echo json_encode(
+                    array('message' => 'Wrong password',
+                          'status' => 'fail')
+                );
+            }
+        } else {
+            //Пользователь не найден
+            echo json_encode(
+                array('message' => 'No users found with username entered',
+                      'status' => 'fail')
+            );
+        }   
     }
-    echo json_encode($temp[0],true);
+
+    echo json_encode($user_arr['data'][0],true);
 
     //header('Content-type: application/json');
     

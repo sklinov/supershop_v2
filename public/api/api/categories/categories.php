@@ -29,6 +29,7 @@
                'id'          => $id,
                'name'        => $name,
                'title'       => $title,
+               'quantity'    => $quantity,
                'description' => html_entity_decode($description)
             );
             //Push extracted to ['data']

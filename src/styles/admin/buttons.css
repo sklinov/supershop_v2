@@ -1,0 +1,30 @@
+.admin__button {
+    width: 200px;
+    height: 40px;
+    margin: 20px 20px 20px 0px;
+    text-align: center;
+    border: none;
+    font-family: Proxima Nova;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.admin__button:hover {
+    filter: brightness(75%);
+}
+.admin__button:active {
+    
+}
+
+.admin__button-success {
+    background-color: var(--green);
+    color: white;
+}
+.admin__button-secondary {
+    background-color: var(--dgrey);
+    color: white;
+}
+.admin__button-danger {
+    background-color: var(--red);
+    color: white;
+}

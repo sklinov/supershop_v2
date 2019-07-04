@@ -37,7 +37,7 @@
                             badge.name AS badge_name,
                             badge.color AS badge_color
                         FROM
-                            ".$this->table." 
+                            :table 
                         JOIN
                             product_image
                         ON
@@ -47,13 +47,16 @@
                         ON
                             badge.id = product.badge_id    
                         WHERE
-                            product.id = ?
+                            product.id = :id
                         GROUP BY
                             product.id";
             //Prepared statement
             $stmt = $this->conn->prepare($query);
             //Bind ID (1 is for the first parameter)
-            $stmt->bindParam(1, $this->id);
+            
+            $stmt->bindParam(':id', $this->id);
+            $stmt->bindParam(':table',$this->table);
+            
             //Execute query
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -72,8 +75,7 @@
 
         //Get All Products info
         public function getAllProducts() {
-            // Create query
-            //$query = "SELECT * FROM ".$this->table;
+            
             $query = "SELECT
                             product_category.id_category AS id_category,
                             product.id AS id,
@@ -103,6 +105,7 @@
                         GROUP BY
                             product.id";
             //Prepared statement
+            
             $stmt = $this->conn->prepare($query);
             //Execute query
             $stmt->execute();
@@ -140,10 +143,12 @@
                         ON
                             badge.id = product.badge_id
                         WHERE
-                            product_category.id_category =".$this->category." 
+                            product_category.id_category = :category 
                         GROUP BY
                             product.id";
             //Prepared statement
+            $stmt->bindParam(':category',$this->category);
+            
             $stmt = $this->conn->prepare($query);
             //Execute query
             $stmt->execute();

@@ -5,10 +5,10 @@ const Context = React.createContext();
 
 const reducer = (state, action) => {
   let inCart;
-  let user;
-  let loggedIn;
+  //let loggedIn;
   switch(action.type) {
     case 'ADD_TO_CART':
+        console.log(state);
         inCart = groupProducts(state.inCart,action.payload);
         return {
           ...state,
@@ -37,46 +37,35 @@ const reducer = (state, action) => {
           inCartTotal: updateTotal(inCart)
         };
     case 'USER_LOGIN': 
-        //var temp = userLogin(state.user,action.payload);
-        //console.log(temp);
         return {
           ...state,
-          user: userLogin(state.user,action.payload),
-          //loggedIn: temp.length> 0 ? true: false
+          user: action.user,
+          loggedIn: true
+        };
+    case 'CATEGORY_ADD':
+        return {
+          state
+        };
+    case 'CATEGORY_DELETE':
+        return {
+          state
+        };
+    case 'CATEGORY_EDIT':
+        console.log("DISPATCH FIRED");
+        //console.log(action.payload);
+        var categories = action.payload;
+        console.log(categories);
+        console.log(state);
+        
+        return {
+          ...state,
+          categories: categories
         };
     default:
         return state;
   }; 
 };
 
-var userLogin = (user, payload) => {
-  
-  const url = "/api/users/login.php";
-  console.log(payload);
-  fetch(url,{
-    method: "POST",
-    body: JSON.stringify(payload)
-  })
-      .then(response => response.json())
-      .then(
-      (result) => {
-          //user = result;
-          user.id = result.id;
-          user.name = result.name;
-          user.email = result.email;
-          user.phone = result.phone;
-          user.city = result.city;
-          user.street = result.street;
-          user.building = result.building;
-          user.flat = result.flat;
-         // console.log(user);         
-      },
-      (error) => {
-          console.log(error);
-      }); 
-  //console.log(user);
-  return user;
-}
 
 var groupProducts = (inCart, payload) => {
   const index = inCart.indexOf(payload);
@@ -121,7 +110,6 @@ var removeFromCart = (inCart, payload) => {
   return inCart;
 }
 
-
 var updateTotal = (inCart) => {
   if(inCart !== undefined || inCart.length !== 0)
   {
@@ -141,21 +129,16 @@ class Provider extends Component {
           products: [],
           inCart: [],
           inCartTotal: 0,
-          user: [],
+          user: undefined,
           loggedIn: false,
           dispatch: action => this.setState( state => reducer(state,action))         
         };
     }
-    // componentWillMount() {
-    //     this.setState({categoryId : this.props.match.params.id}); 
-    // }
 
     componentDidMount() {
         this.getAllCategories();
         this.getProductsByCategoryId();
     }
-    
-   
     
     getAllCategories = () => {
       const url = "/api/categories/categories.php"; 
@@ -178,8 +161,7 @@ class Provider extends Component {
         console.log('Axios fetch error:',err);
       })
     }
-
-    
+   
     render() {
     return (
       <Context.Provider value={this.state}>
@@ -191,4 +173,4 @@ class Provider extends Component {
 
 const Consumer = Context.Consumer;
 
-export {Provider, Consumer};
+export {Provider, Consumer, Context, reducer};
