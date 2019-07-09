@@ -4,8 +4,9 @@ import Menu from './Menu';
 import Orders from './Orders';
 import Users from './Users';
 import Products from './Products';
+import ProductEdit from './ProductEdit'
 import Categories from './Categories';
-import CategoryEditing from './CategoryEditing';
+import CategoryEdit from './CategoryEdit';
 
 import '../../styles/admin/admin.css';
 
@@ -20,9 +21,10 @@ export default class Admin extends Component {
                 <Menu />
                 <Route path={`${this.props.match.url}/orders/`} component={Orders} />
                 <Route path={`${this.props.match.url}/users/`} component={Users} />
-                <Route path={`${this.props.match.url}/products/`} component={Products} />
+                <Route exact path={`${this.props.match.url}/products/`} component={Products} />
+                <Route path={`${this.props.match.url}/products/:id`} component={ProductEdit} />
                 <Route exact path={`${this.props.match.url}/categories/`} component={Categories} />
-                <Route path={`${this.props.match.url}/categories/:id`} component={CategoryEditing} />
+                <Route path={`${this.props.match.url}/categories/:id`} component={CategoryEdit} />
             </div>
         )
     }

@@ -188,4 +188,23 @@
             echo "Error: %s".$stmt->error;
             return false; 
         }
+
+        //get product images
+        public function getProductImagesById() {
+            $query = 'SELECT 
+                        id AS image_id,
+                        image_main AS image_main,
+                        image_url AS image_url,
+                        product_id AS product_id
+                        FROM product_image
+                        WHERE product_id = :id';
+            //Prepare statement
+            $stmt = $this->conn->prepare($query);
+
+            //Bind data
+            $stmt->bindParam(':id',$this->id);
+            
+            $stmt->execute();
+            return $stmt; 
+        }
     }

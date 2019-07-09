@@ -129,7 +129,7 @@
 .table__row {
 	padding: 5px;
 }
-.table__row:hover:not(:first-of-type) {
+.table__row:hover {
 	background-color: var(--grey);
 	border-left: 4px solid var(--purple);
 }
@@ -219,4 +219,9 @@
 .upload__input {
 	display: none;
 
+}
+
+.distribute {
+	display: flex;
+	justify-content: space-between;
 }

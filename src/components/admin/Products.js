@@ -7,62 +7,73 @@ export default class Products extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            currentCategoryId: 1
+            currentCategoryId: 0
         };
+    }
+
+    handleChange = (e) => {
+        e.preventDefault();
+        this.setState({currentCategoryId: e.target.value});
     }
 
     render() {
         return (
             <div className="content">
                 <h1 className="title">Товары</h1>
-                {/* <Consumer>
+                <Consumer>
                 {
                     value => {
-                        const { categories, products, dispatch } = value;
-                        //console.log(products);
+                        const { categories, products } = value;
                         if(products === undefined || products.length === 0 || categories === undefined || categories.length === 0) {
                             return <Spinner />
                         } else {
                             return (
                                 <React.Fragment>
+                                <select className="form__input-field" onChange={this.handleChange}>
+                                    <option key='0' value='0' >Все товары</option>
+                                    {categories.map(category => {
+                                        return (
+                                            <option key={category.id} value={category.id}>{category.name}</option>
+                                        )
+                                    })}
+                                </select>
                                 <table className="table">
                                     <thead>
-                                    <tr className="table__row">
+                                    <tr className="table__headrow">
                                         <th className="table__head">Название товара</th>
                                         <th className="table__head">Стоимость</th>
-                                        <th className="table__head"></th>
                                         <th className="table__head"></th>
                                     </tr> 
                                     </thead>
                                     <tbody>   
                                 {
-                                    products.map(cat => {
+                                    products.filter(product => {
+                                        if(parseInt(this.state.currentCategoryId) !== 0)
+                                        {
+                                            return product.id_category === this.state.currentCategoryId
+                                        }
+                                        else
+                                        {
+                                            return product 
+                                        }
+                                    }).map(product => {
                                         return (
-                                            <tr className="table__row" key={cat.id}>
-                                                <td className="table__cell">{cat.name}</td>
-                                                <td className="table__cell">{cat.quantity}</td>
-                                                
-                                                <td className="table__cell">{ cat.quantity == 0 && <span className="link link-danger" onClick={this.deleteCategory.bind(this, dispatch, cat.id)}>удалить</span>}</td>
-                                                <td className="table__cell"><Link to={"/admin/products/"+cat.id} key={cat.id}>просмотр</Link></td>
+                                            <tr className="table__row" key={product.id}>
+                                                <td className="table__cell">{product.name}</td>
+                                                <td className="table__cell">{product.price}</td>
+                                                <td className="table__cell"><Link to={"/admin/products/"+product.id}>просмотр</Link></td>
                                             </tr>
                                         ) 
                                 })
                                 }
                                 </tbody>
                                 </table>
-                            
-                                
-                                <form className="add">
-                                    <label>Добавить категорию:</label>
-                                    <input type="text" name="newCatName" onChange={this.handleChange}></input>
-                                    <br /><span className="link link-success" onClick={this.addCategory.bind(this, dispatch)}>Добавить категорию</span>
-                                </form>
                                 </React.Fragment>
                                 )                           
                         }                                                
                     }
                 }
-                </Consumer> */}
+                </Consumer>
                 
             </div>
         )
