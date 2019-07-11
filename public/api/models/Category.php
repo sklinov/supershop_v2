@@ -15,21 +15,6 @@
         public function __construct($db) {
             $this->conn = $db;
         }
-        //Get Categories list with props
-        // public function getAllCategories() {
-        //     //Create query
-        //     $query = "SELECT * FROM ".$this->table;
-        //    //Prepared statement
-        //    $stmt = $this->conn->prepare($query);
-        //    //Execute query
-        //    $stmt->execute();
-        //    return $stmt;
-        // }
-        private function doQuery($query) {
-            
-            $stmt->execute();
-            return $stmt;
-        } 
 
         public function getAllCategories() {
             //Create query
@@ -99,10 +84,6 @@
             $stmt->bindParam(':title',$this->title, PDO::PARAM_STR);
             $stmt->bindParam(':description',$this->description, PDO::PARAM_STR);
             
-
-            // var_dump($stmt);
-            // var_dump($this->table,$this->id, $this->name, $this->title, $this->description);
-
             $stmt->execute();
             
             return $stmt;

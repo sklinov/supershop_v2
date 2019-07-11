@@ -17,6 +17,7 @@
         public $available;
         public $badge_name;
         public $badge_color;
+        public $image_urls;
 
         //Constructor with DB
         public function __construct($db) {
@@ -204,6 +205,42 @@
             //Bind data
             $stmt->bindParam(':id',$this->id);
             
+            $stmt->execute();
+            return $stmt; 
+        }
+        public function productEdit() {
+            $query = 'UPDATE '.$this->table.'
+                        SET 
+                            name=:name,
+                            description=:description,
+                            sku=:sku,
+                            price=:price,
+                            old_price=:old_price,
+                            quantity=:quantity,
+                            badge_id=:badge_id
+                      WHERE id=:id';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':name',$this->name);
+            $stmt->bindParam(':description',$this->description);
+            $stmt->bindParam(':sku',$this->sku);
+            $stmt->bindParam(':price',$this->price);
+            $stmt->bindParam(':old_price',$this->old_price);
+            $stmt->bindParam(':quantity',$this->quantity);
+            $stmt->bindParam(':badge_id',$this->badge_id);
+            $stmt->bindParam(':id',$this->id);
+            
+            $stmt->execute();
+            return $stmt; 
+        }
+
+        public function addImageByProductId() {
+            $query = 'INSERT INTO `product_image`
+                        SET product_id=:product_id,
+                            image_url=:image_url
+            ';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':product_id',$this->id);
+            $stmt->bindParam(':image_url',$this->image_url);
             $stmt->execute();
             return $stmt; 
         }
