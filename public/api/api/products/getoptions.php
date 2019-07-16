@@ -7,6 +7,7 @@
     include_once '../../models/Product.php';
 
     //Instantiate Database object and connect
+    
     $database = new Database();
     $db = $database->connect();
 
@@ -14,41 +15,33 @@
 
     $product = new Product($db);
 
-    //Get all products information
-    $result = $product->getAllProducts();
+    $product->id = isset($_GET['id'])? $_GET['id'] : NULL;
+
+    //Get product images
+    $result = $product->getOptionsByProductId();
+    
     //Number of rows returned
     $num = $result->rowCount();
 
     if($num > 0) {
         //Array of products
-        $products_arr = array();
-        $products_arr['data'] = array();
+        $options_arr = array();
+        $options_arr['data'] = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $product_item = array(
-               'id'          => $id,
-               'name'        => $name,
-               'description' => html_entity_decode($description),
-               'sku'         => $sku,
-               'price'       => $price,
-               'old_price'   => $old_price,
-               'quantity'    => $quantity,
-               'image_id'    => $image_id,
-               'badge_id'    => $badge_id,
-               'badge_name'  => $badge_name,
-               'badge_color' => $badge_color
+            $option_item = array(
+               'product_id'          => $product_id,
+               'option_id'           => $option_id,
+               'option_name'         => $option_name
             );
             // Push extracted to ['data']
-            array_push($products_arr['data'], $product_item);
-
-
+            array_push($options_arr['data'], $option_item);
         }
         //Convert to JSON and putput
-        echo json_encode($products_arr);
+        echo json_encode($options_arr);
     } else {
         //No products
         echo json_encode(
             array('message' => 'No products returned from database')
         );
     }
-

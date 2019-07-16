@@ -74,7 +74,7 @@ export default class Products extends Component {
                     }
                 }
                 </Consumer>
-                
+                <Link to={"/admin/products/new"}>Добавить товар</Link>
             </div>
         )
     }

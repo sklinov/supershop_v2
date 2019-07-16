@@ -27,10 +27,12 @@
     if($product->id == NULL)
     {
         if($product->category != 0)
-        {
+        {   
+            //echo 'getProductByCategoryId';
             $result = $product->getProductByCategoryId();
         }
         else {
+            //echo 'getAllProducts';
             $result = $product->getAllProducts();
         }
     } else {
@@ -56,6 +58,7 @@
                'old_price'   => $old_price,
                'quantity'    => $quantity,
                'image_url'   => $image_url,
+               'badge_id'    => $badge_id,
                'badge_name'  => $badge_name,
                'badge_color' => $badge_color
             );

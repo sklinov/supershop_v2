@@ -23,7 +23,8 @@ export default class ProductEdit extends Component {
             id_category: 0,
             categories: [],
             isLoaded: false,
-            isSaved: false
+            isSaved: false,
+            isNew: false
         };
     }
     
@@ -50,15 +51,16 @@ export default class ProductEdit extends Component {
                             badge_id: current.badge_id,
                             badge_name: current.badge_name,
                             id_category: current.id_category,
-                            //options: current.options,
                             isLoaded: true,
-                            categories}, () => {this.getImages()});
+                            categories}, () => {this.getImages(); 
+                                                this.getOptions();
+                                                this.getBadges();});
            
         };
     }
 
     handleChange = (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value,
             isSaved: false,
@@ -77,12 +79,12 @@ export default class ProductEdit extends Component {
         formData.append('old_price', this.state.old_price);
         formData.append('quantity', this.state.quantity);
         formData.append('badge_id', this.state.badge_id);
+        formData.append('id_category', this.state.id_category);
         this.state.filesToAdd.forEach((file) => {
             formData.append('files[]', file);
         });
         //formData.append('options', this.state.options);
-        //formData.append('imagesToAdd', this.state.imagesToAdd);
-        console.log(formData);
+        //console.log(formData);
         
         const url = "/api/products/edit.php";
         let headers = new Headers();
@@ -101,12 +103,23 @@ export default class ProductEdit extends Component {
             }).then(response => response.json())
             .then(
             (result2) => {
-                const payload = result2.data;
-                dispatch({
-                    type: 'PRODUCT_EDIT',
-                    payload
+                var payload = {products: [], categories: []};
+                payload.products = result2.data;
+                const url3 = "/api/categories/categories.php";
+                fetch(url3, {method: "GET"})
+                .then(response =>response.json())
+                .then(
+                (result3) => { 
+                    payload.categories = result3.data;
+                    dispatch({
+                        type: 'PRODUCT_EDIT',
+                        payload
+                        }); 
+                    this.setState({isSaved: true});
+                },
+                (error) => {
+                    console.log(error);
                     }); 
-                //this.setState({isSaved: true});
             },
             (error) => {
                 console.log(error);
@@ -118,20 +131,28 @@ export default class ProductEdit extends Component {
     }
 
     getBadges() {
-        const badges = [{'badge_id': 8, 'badge_name': 'NEW'},
-                        {'badge_id': 9, 'badge_name': 'HOT'}, 
-                        {'badge_id': 10, 'badge_name': 'SALE'}];
-        this.setState({
-            badges
+        const url = "/api/products/getbadges.php";
+        fetch(url,{ method: "GET" })
+        .then(response => response.json())
+        .then(
+        (result) => {
+            this.setState({badges: result.data});
+        },
+        (error) => {
+        console.log(error);
         });
     }
 
     getOptions() {
-        const options = [{'option_id': 1, 'option_name': 'Вариация 1'},
-                         {'option_id': 2, 'option_name': 'Вариация 2'},
-                         {'option_id': 3, 'option_name': 'Вариация 3'}];
-        this.setState({
-            options
+        const url = "/api/products/getoptions.php?id="+this.state.id;
+        fetch(url,{ method: "GET" })
+        .then(response => response.json())
+        .then(
+        (result) => {
+            this.setState({options: result.data});
+        },
+        (error) => {
+        console.log(error);
         });
     }
     
@@ -159,28 +180,39 @@ export default class ProductEdit extends Component {
                             image_id: uuid.v4(),
                             product_id: this.state.id
                         };
-        console.log(fileToAdd);
         this.setState({imagesToAdd: [...this.state.imagesToAdd, fileToAdd ]});
         this.setState({filesToAdd: [...this.state.filesToAdd, file]});
-        console.log(file);
-        console.log(url);
+
     }
 
     componentDidUpdate() {
         let value = this.context;
-        this.fillValues(value);
+        if(this.props.match.params.id !== 'new')
+        {
+            this.fillValues(value);
+        }
+        else if(!this.state.isLoaded && (value.categories !== undefined || value.categories.length !== 0) ) {
+            this.setState({categories: value.categories, isLoaded: true});
+        }
     }
 
     componentDidMount() {
         let value = this.context;
-        this.fillValues(value);
+        console.log(this.state.isNew);
+        console.log(this.props.match.params.id);
+        if(this.props.match.params.id !== 'new')
+        {
+            this.fillValues(value);
+        }
+        else if(!this.state.isLoaded && (value.categories !== undefined || value.categories.length !== 0) ) {
+            this.setState({categories: value.categories, isLoaded: true});
+        }
         this.getBadges();
-        this.getOptions();
     }
 
     render() {
         const { dispatch } = this.context;
-        const { id, name, description, sku, price, old_price, quantity, badge_id, badges, options, images, imagesToAdd, categories } = this.state;
+        const { id, name, description, sku, price, old_price, quantity, id_category, badge_id, badges, options, images, imagesToAdd, categories } = this.state;
         return (
             <React.Fragment>
             <div className="content"> 
@@ -217,7 +249,7 @@ export default class ProductEdit extends Component {
                                     badges.map(badge => {
                                         return (
                                             <React.Fragment key={badge.badge_id}>
-                                            <input type="radio" name="badge_id"  value={badge.badge_id} onChange={this.handleChange}/>
+                                            <input type="radio" name="badge_id" value={badge.badge_id} onChange={this.handleChange} checked={badge.badge_id === badge_id}/>
                                             <label>{badge.badge_name}</label><br />
                                             </React.Fragment>
                                         )
@@ -227,7 +259,7 @@ export default class ProductEdit extends Component {
                                 <select className="form__input-field" name="id_category" onChange={this.handleChange}>
                                 {categories.map(category => {
                                         return (
-                                            <option key={category.id} value={category.id}>{category.name}</option>
+                                            <option key={category.id} value={category.id} selected={category.id === id_category}>{category.name}</option>
                                         )
                                     })}
                                 </select>
@@ -239,8 +271,7 @@ export default class ProductEdit extends Component {
                                 Фотографии товара
                         </div>
                         <div className="card__cont">
-                            
-                                {
+                                {   
                                     images.map(image => {
                                         return (
                                             <React.Fragment key={image.image_id}>
@@ -255,20 +286,19 @@ export default class ProductEdit extends Component {
                                         )
                                     })
                                 }
-                                
-                                        {
-                                            imagesToAdd.map(image => {
-                                                return (
-                                                <React.Fragment key={image.image_id}>
-                                                <div className="card__col">
-                                                    <div className="card__imageblock">
-                                                            <img className="card__image" src={image.image_url} alt={name}/>
-                                                    </div>
-                                                </div>
-                                                </React.Fragment>
-                                                )
-                                            })
-                                        }
+                                {
+                                    imagesToAdd.map(image => {
+                                        return (
+                                        <React.Fragment key={image.image_id}>
+                                        <div className="card__col">
+                                            <div className="card__imageblock">
+                                                    <img className="card__image" src={image.image_url} alt={name}/>
+                                            </div>
+                                        </div>
+                                        </React.Fragment>
+                                        )
+                                    })
+                                }
                                 <div className="card__col">
                                     <div className="card__imageblock">
                                         <img className="card_image" src={process.env.PUBLIC_URL+'/img/product/upload.png'} alt="загрузить файл" />
@@ -286,8 +316,8 @@ export default class ProductEdit extends Component {
                         </div>
                         <div className="card__cont">
                             <div className="card__col">
-                                {
-                                    options.map(option => {
+                                {   
+                                    options !== undefined && options.length >0 && options.map(option => {
                                         return (
                                             <React.Fragment key={option.option_id}>
                                                 <input type="text" className="form__input-field" name="option" value={option.option_name} readOnly/>

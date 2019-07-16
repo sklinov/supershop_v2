@@ -17,17 +17,33 @@
     $product->name = isset($_POST['name'])? $_POST['name']: NULL;
     $product->description = isset($_POST['description'])? $_POST['description']: NULL;
     $product->sku = isset($_POST['sku'])? $_POST['sku']: NULL;
-    $product->price = isset($_POST['price'])? $_POST['price']: NULL;
-    $product->quantity = isset($_POST['quantity'])? $_POST['quantity']: NULL;
-    $product->badge_id = isset($_POST['badge_id'])? $_POST['badge_id']: NULL;
-    $product->id = isset($_POST['id'])? $_POST['id']: NULL;
+    $product->price = isset($_POST['price'])? $_POST['price']: 0;
+    $product->old_price = isset($_POST['old_price'])? $_POST['old_price']: 0;
+    $product->quantity = isset($_POST['quantity'])? $_POST['quantity']: 0;
+    $product->badge_id = isset($_POST['badge_id'])? $_POST['badge_id']: 7;
+    $product->id_category = isset($_POST['id_category'])? $_POST['id_category']: NULL;
 
+    var_dump($_POST);
 
-    // var_dump($_POST);
-    var_dump($_FILES);
+    if($product->id != 0 && $product->name)
+    {
+        $result = $product->productEdit();
+        
+        if($product->id_category)
+        {
+            $category_result = $product->updateProductCategory();
+        }
+        echo json_encode("product edited",true);
+    } 
+    else if($product->id == 0 && $product->name) {
+        $product->productAdd();
+        $product->addProductToCategory();
+    }
+    else {
+        echo json_encode("product NOT edited",true);
+    }
 
     $uploaddir = dirname(dirname(dirname(dirname(__FILE__)))).'/img/product';
-    
     if(isset($_FILES['files']))
     {   
         $num_of_files = count($_FILES['files']['name']);
@@ -58,13 +74,4 @@
             }
         }
         
-    }
-
-    if($product->id && 
-        $product->name)
-    {
-        $result = $product->productEdit();
-        echo json_encode("product edited",true);
-    } else {
-        echo json_encode("product NOT edited",true);
     }

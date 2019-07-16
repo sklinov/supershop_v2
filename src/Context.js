@@ -51,26 +51,18 @@ const reducer = (state, action) => {
           state
         };
     case 'CATEGORY_EDIT':
-        console.log("DISPATCH FIRED");
-        //console.log(action.payload);
         var categories = action.payload;
-        console.log(categories);
-        console.log(state);
-        
         return {
           ...state,
           categories: categories
         };
     case 'PRODUCT_EDIT':
-      console.log("PRODUCT EDIT DISPATCH FIRED");
-      //console.log(action.payload);
-      var products = action.payload;
-      console.log(products);
-      console.log(state);
-      
+      var products = action.payload.products;
+      categories = action.payload.categories;
       return {
         ...state,
-        products: products
+        products: products,
+        categories: categories
       };
     default:
         return state;

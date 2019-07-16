@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import {Context, Consumer} from '../../Context'
+import {Context} from '../../Context'
 import Spinner from '../frontend/Spinner'
 
 export default class CategoryEdit extends Component {
