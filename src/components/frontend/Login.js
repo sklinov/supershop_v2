@@ -8,13 +8,12 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            user: [],
+            user: []
         };
     }
 
     userLogin = (dispatch, e) => {
         e.preventDefault();
-        const { user } = this.state;
         let payload = {email: this.state.email,
                        password: this.state.password };
         const url = "/api/users/login.php";
@@ -24,19 +23,10 @@ export default class Login extends Component {
           }).then(response => response.json())
           .then(
           (result) => {
-              //user = result;
-              user.id = result.id;
-              user.name = result.name;
-              user.email = result.email;
-              user.phone = result.phone;
-              user.city = result.city;
-              user.street = result.street;
-              user.building = result.building;
-              user.flat = result.flat;
-              console.log(user);
+              this.setState({loggedIn: true});
               dispatch({
                 type: 'USER_LOGIN',
-                user : user
+                payload : result
             });       
           },
           (error) => {
@@ -55,20 +45,30 @@ export default class Login extends Component {
             <Consumer>
             {
                 value=> {
-                    const {dispatch} = value;
-                    return (
-                        <div className="checkout__container">
-                        <h5 className="checkout__header">Быстрый вход</h5>
-                        <form>
-                            <label className="checkout__label">Ваш e-mail:</label><br />
-                            <input className="checkout__input" type="email" name="email" onChange={this.handleChange}></input><br /><br />
-                            <label className="checkout__label">Пароль:</label><br />
-                            <input className="checkout__input" type="password" name="password" onChange={this.handleChange}></input><br /><br />
-                            <button type="button" className="button button-primary" onClick={this.userLogin.bind(this, dispatch)}>Войти</button>
-                            <span className="checkout__link">Восстановить пароль</span>
-                        </form> 
-                        </div>
-                    );
+                    const {loggedIn, user, dispatch} = value;
+                    if(!loggedIn) {
+                        return (
+                            <div className="checkout__container">
+                            <h5 className="checkout__header">Быстрый вход</h5>
+                            <form>
+                                <label className="checkout__label">Ваш e-mail:</label><br />
+                                <input className="checkout__input" type="email" name="email" onChange={this.handleChange}></input><br /><br />
+                                <label className="checkout__label">Пароль:</label><br />
+                                <input className="checkout__input" type="password" name="password" onChange={this.handleChange}></input><br /><br />
+                                <button type="button" className="button button-primary" onClick={this.userLogin.bind(this, dispatch)}>Войти</button>
+                                <span className="checkout__link">Восстановить пароль</span>
+                            </form> 
+                            </div>
+                        );
+                    }
+                    else if(loggedIn) {
+                        return (
+                            <div className="checkout__container">
+                            <h5 className="checkout__header">Добро пожаловать, {user.name}</h5>
+                            </div>
+                        )
+                    } 
+                    
                 }
             }
 

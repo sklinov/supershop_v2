@@ -145,37 +145,36 @@
             ";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':id',$this->id);
-            $stmt->bindParam(':id_status',$this->status['id']);
-            $stmt->bindParam(':id',$this->id);
-            $stmt->bindParam(':id',$this->id);
-            $stmt->bindParam(':id',$this->id);
             if($stmt->execute()) 
             { 
                 $success=true;
             }
 
-            $query = "INSERT INTO `order_product`
+            foreach($this->products as $product)
+            {
+                $query = "INSERT INTO `order_product`
                       SET 
                       id_order =:id_order,
                       id_product =:id_product,
                       price =:price,
                       quantity =:quantity
-            ";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':id',$this->id);
-            $stmt->bindParam(':id_status',$this->status['id']);
-            $stmt->bindParam(':id',$this->id);
-            $stmt->bindParam(':id',$this->id);
-        
-            if($stmt->execute()) 
-            { 
-                $success=true;
-            }
-            else {
-                $success=false;
-            }
+                ";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':id_order',$product['id_order']);
+                $stmt->bindParam(':id_product',$product['id_product']);
+                $stmt->bindParam(':price',$product['price']);
+                $stmt->bindParam(':quantity',$product['quantity']);
+            
+                if($stmt->execute()) 
+                { 
+                    $success=true;
+                }
+                else {
+                    $success=false;
+                }
+                
+                }
             return $success;
-
         }
 
 

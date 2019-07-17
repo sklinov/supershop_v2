@@ -5,6 +5,7 @@ const Context = React.createContext();
 
 const reducer = (state, action) => {
   let inCart;
+  let user;
   //let loggedIn;
   switch(action.type) {
     case 'ADD_TO_CART':
@@ -37,11 +38,20 @@ const reducer = (state, action) => {
           inCartTotal: updateTotal(inCart)
         };
     case 'USER_LOGIN': 
+        user = action.payload;
         return {
           ...state,
-          user: action.user,
+          user: user,
           loggedIn: true
         };
+
+    case 'CHECKOUT_SIGN_UP':
+      console.log(action.payload);
+      user = action.payload;
+      return {
+        ...state,
+        user: user,
+      }
     case 'CATEGORY_ADD':
         return {
           state
@@ -64,11 +74,14 @@ const reducer = (state, action) => {
         products: products,
         categories: categories
       };
+    case 'CHECKOUT_DELIVERY':
+      return {
+        ...state
+      };
     default:
         return state;
   }; 
 };
-
 
 var groupProducts = (inCart, payload) => {
   const index = inCart.indexOf(payload);

@@ -12,13 +12,13 @@
     var_dump($_POST);
 
     $order->id = isset($_POST['id'])? $_POST['id']: NULL;
-    $order->status = isset($_POST['status'])? json_decode($_POST['status']): NULL;
-    $order->products = isset($_POST['products'])? json_decode($_POST['products']): NULL;
+    $order->status = isset($_POST['status'])? json_decode($_POST['status'], true): NULL;
+    $order->products = isset($_POST['products'])? json_decode($_POST['products'], true): NULL;
     $order->total = isset($_POST['total'])? $_POST['total']: NULL;
     $order->comment = isset($_POST['comment'])? $_POST['comment']: NULL;
-    $order->shipping = isset($_POST['shipping'])? json_decode($_POST['shipping']): NULL;
+    $order->shipping = isset($_POST['shipping'])? json_decode($_POST['shipping'], true): NULL;
    
-    $user_data = isset($_POST['user'])? json_decode($_POST['user']): NULL; 
+    $user_data = isset($_POST['user'])? json_decode($_POST['user'], true): NULL; 
     
     $user->id = isset($user_data['id'])? $user_data['id']: NULL;
     $user->name = isset($user_data['name'])? $user_data['name']: NULL;

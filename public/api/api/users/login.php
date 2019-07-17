@@ -1,6 +1,4 @@
 <?php
-    session_start();
-
     include_once '../../config/Database.php';
     include_once '../../models/User.php';
 
@@ -51,14 +49,15 @@
                 );
                 //Проверка пароля
                 if(password_verify($user->password, $user_item['hash'])) {
-                    $_SESSION['user_id'] = $user_item['user_id'];
-                    $_SESSION['timeshift'] = $user_item['timeshift'];
+                    //$_SESSION['user_id'] = $user_item['user_id'];
+                    //$_SESSION['timeshift'] = $user_item['timeshift'];
+                    unset($user_item['hash']);
                     array_push($user_arr['data'],$user_item);
                 }
             }
             if(isset($user_arr['data'])) {
                 $user_arr['status'] = 'success';
-                echo json_encode($user_arr);
+                echo json_encode($user_arr['data'][0],true);
             }
             else {
                 echo json_encode(
@@ -75,7 +74,7 @@
         }   
     }
 
-    echo json_encode($user_arr['data'][0],true);
+    
 
     //header('Content-type: application/json');
     

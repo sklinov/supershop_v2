@@ -26,14 +26,13 @@
                              phone as phone, 
                              email as email,
                              city as city,
-                             street as steret, 
+                             street as street, 
                              building as building,
                              flat as flat
-                FROM :table
+                FROM `user`
                 WHERE email = :email" ;
             $stmt = $this->conn->prepare($query);
            
-           $stmt->bindParam(':table',$this->table);
            $stmt->bindParam(':email',$this->email);
            
           

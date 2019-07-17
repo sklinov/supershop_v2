@@ -1,7 +1,17 @@
+.checkout__row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+}
 .checkout__container {
     display: flex;
     flex-direction: column;
     text-align: left;
+    margin-right: 50px;
+}
+.checkout__width-3 {
+    flex-basis: 30%;
+    margin-right: 20px;
 }
 .checkout__header {
     font-size: 18px;

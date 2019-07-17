@@ -9,6 +9,7 @@ import {
 
 import Login from './Login';
 import SignUp from './SignUp';
+import Delivery from './Delivery';
 
 
 
@@ -34,8 +35,10 @@ export default class Checkout extends Component {
                             </AccordionItemButton>
                         </AccordionItemHeading>
                         <AccordionItemPanel>
-                            <SignUp />
-                            <Login />
+                            <div className="checkout__row">
+                                <SignUp />
+                                <Login />
+                            </div>
                         </AccordionItemPanel>
                     </AccordionItem>
                     <AccordionItem>
@@ -45,7 +48,7 @@ export default class Checkout extends Component {
                             </AccordionItemButton>
                         </AccordionItemHeading>
                         <AccordionItemPanel>
-                                Доставка
+                                <Delivery />
                         </AccordionItemPanel>
                     </AccordionItem>
                     <AccordionItem>
