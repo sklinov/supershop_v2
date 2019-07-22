@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Consumer} from '../../Context'
+import MaskedInput from 'react-text-mask'
 
 export default class SignUp extends Component {
     constructor(props) {
@@ -42,6 +43,7 @@ export default class SignUp extends Component {
                                     <input className="checkout__input" type="text" name="name" onChange={this.handleChange}></input><br /><br />
 
                                     <label className="checkout__label">Контатный телефон:</label><br />
+                                    {/* <MaskedInput mask={[ '/[7]/','(', /\d/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]} className="checkout__input" type="text" name="phone" onChange={this.handleChange}></MaskedInput><br /><br /> */}
                                     <input className="checkout__input" type="text" name="phone" onChange={this.handleChange}></input><br /><br />
 
                                     <label className="checkout__label">E-mail</label><br />

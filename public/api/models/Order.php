@@ -50,7 +50,8 @@
                         `status`.color AS status_color
                       FROM `orders`
                       JOIN `status` ON `status`.id = `orders`.id_status
-                      JOIN `user` ON `user`.id = `orders`.id_user";
+                      JOIN `user` ON `user`.id = `orders`.id_user
+                      ORDER BY `orders`.datetime DESC";
                       
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
@@ -105,8 +106,69 @@
         }
 
         public function addOrder() {
-
+            if(
+            $this->insertOrder() &&
+            $this->insertOrderProduct())
+            {
+                return true;
+            }
         }
+
+        public function insertOrder() {
+            $query = "INSERT INTO `orders`
+                        SET
+                        id_user=:id_user, 
+                        total=:total,
+                        id_status=:id_status,
+                        comment=:comment,
+                        id_shipping=:id_shipping
+    
+            ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':id_user',$this->id_user);
+            $stmt->bindParam(':id_status',$this->id_status);
+            $stmt->bindParam(':comment',$this->comment);
+            $stmt->bindParam(':id_shipping',$this->id_shipping);
+            $stmt->bindParam(':total',$this->total);
+            if($stmt->execute()) 
+            {   
+                $this->id = $this->conn->lastInsertID();
+                return true;
+            }
+        }
+
+        public function insertOrderProduct() {
+            $success = false;
+
+            foreach($this->products as $product)
+            {
+                $query = "INSERT INTO `order_product`
+                      SET 
+                      id_order =:id_order,
+                      id_product =:id_product,
+                      price =:price,
+                      quantity =:quantity
+                ";
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':id_order',$this->id);
+                $stmt->bindParam(':id_product',$product['id']);
+                $stmt->bindParam(':price',$product['price']);
+                $stmt->bindParam(':quantity',$product['number']);
+            
+                if($stmt->execute()) 
+                { 
+                    $success=true;
+                }
+                else {
+                    $success=false;
+                }
+                
+                }
+            return $success;
+        }
+
+
+        
         public function orderEdit() {
             if(
             $this->updateOrder() &&

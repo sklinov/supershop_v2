@@ -9,6 +9,23 @@
     text-align: left;
     margin-right: 50px;
 }
+
+.checkout__container-m-30 {
+    margin: 30px;
+}
+
+.checkout__width-half {
+    width: 50%;
+}
+
+.checkout__container-mr-30 {
+    margin-right: 30px;
+}
+
+.checkout__container-table {
+    width: 100%;
+}
+
 .checkout__width-3 {
     flex-basis: 30%;
     margin-right: 20px;
@@ -39,3 +56,46 @@
     font-size: 14px;
     font-weight: 300;
 }
+
+.checkout__cell {
+    
+}
+
+.checkout__data {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.checkout__subtotal {
+    font-size: 18px;
+    font-weight: 700;
+    font-style: oblique;
+
+}
+
+.checkout__oblique {
+    font-size: 18px;
+    font-weight: 300;
+    font-style: oblique;
+}
+
+.checkout__total {
+    font-size: 30px;
+    font-weight: 700;
+    font-style: oblique;
+}
+
+.checkout__successheading {
+    font-weight: 700;
+    font-size: 20px;   
+}
+
+.checkout__successstatus {
+    color: #ed1651;
+}
+
+.validation__error {
+    color: #ed1651;
+    font-size: 14px;
+}
+

@@ -11,18 +11,20 @@
     $user->name = isset($_POST['name'])? $_POST['name']: NULL;
     $user->password = isset($_POST['password'])? $_POST['password']: NULL;
     $user->email = isset($_POST['email'])? $_POST['email']: NULL;
-    $user->phone = isset($_POST['phone'])? $_POST['phone']: NULL;
-    $user->city = isset($_POST['city'])? $_POST['city']: 0;
-    $user->street = isset($_POST['street'])? $_POST['street']: 0;
+    $user->phone = isset($_POST['phone'])? $_POST['phone']: '000';
+    $user->city = isset($_POST['city'])? $_POST['city']: "Введите город";
+    $user->street = isset($_POST['street'])? $_POST['street']: "Введите улицу";
     $user->building = isset($_POST['building'])? $_POST['building']: 0;
     $user->flat = isset($_POST['flat'])? $_POST['flat']: 0;
 
-    if($user->id != 0 && $user->name)
+    if($user->id == NULL && $user->name && $user->email && $user->password)
     {
-        $result = $user->userEdit();
-        if(isset($user->password))
-        {
-            $user->editPassword();
+        $result = $user->userSignUp();
+        if($user->message == "exists") {
+            echo json_encode(array('status' => $user->message),true);    
         }
-        echo json_encode("user edited",true);
+        else {
+            echo json_encode(array('id' => $user->id),true);
+        }
+        
     } 

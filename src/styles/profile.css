@@ -1,0 +1,24 @@
+.profile__ordercell {
+    line-height: 0%;
+    padding: 0;
+    margin: 0;
+}
+
+.profile__order {
+    font-size: 24px;
+    font-weight: 300;
+}
+.profile__total {
+    font-size: 17px;
+    font-weight: 300;
+}
+.profile__datetime {
+    font-size: 12px;
+    font-weight: 300;
+    color: #999999
+}
+.profile__status {
+    font-size: 36px;
+    font-weight: 300;
+    color: #ed1651
+}

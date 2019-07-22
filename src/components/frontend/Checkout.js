@@ -10,9 +10,7 @@ import {
 import Login from './Login';
 import SignUp from './SignUp';
 import Delivery from './Delivery';
-
-
-
+import Confirmation from './Confirmation';
 
 export default class Checkout extends Component {
     constructor(props) {
@@ -58,9 +56,7 @@ export default class Checkout extends Component {
                             </AccordionItemButton>
                         </AccordionItemHeading>
                         <AccordionItemPanel>
-                            <p>
-                                Подтверждение 
-                            </p>
+                            <Confirmation />
                         </AccordionItemPanel>
                     </AccordionItem>
                 </Accordion>

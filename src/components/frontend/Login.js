@@ -8,7 +8,8 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            user: []
+            user: [],
+            pwIsConfirmed: true,
         };
     }
 
@@ -23,14 +24,21 @@ export default class Login extends Component {
           }).then(response => response.json())
           .then(
           (result) => {
-              this.setState({loggedIn: true});
-              dispatch({
+              console.log(result.status);
+              if(result.status === 'success')
+              {
+                this.setState({loggedIn: true, pwIsConfirmed: true});
+                dispatch({
                 type: 'USER_LOGIN',
                 payload : result
-            });       
+                });
+              }
+              else if(result.status === 'fail') {
+                this.setState({ loggedIn: false,pwIsConfirmed: false});
+              }          
           },
           (error) => {
-              console.log(error);
+              console.log("Error:", error);
           });       
     }
 
@@ -46,6 +54,7 @@ export default class Login extends Component {
             {
                 value=> {
                     const {loggedIn, user, dispatch} = value;
+                    const {pwIsConfirmed} = this.state;
                     if(!loggedIn) {
                         return (
                             <div className="checkout__container">
@@ -57,6 +66,11 @@ export default class Login extends Component {
                                 <input className="checkout__input" type="password" name="password" onChange={this.handleChange}></input><br /><br />
                                 <button type="button" className="button button-primary" onClick={this.userLogin.bind(this, dispatch)}>Войти</button>
                                 <span className="checkout__link">Восстановить пароль</span>
+                                {!pwIsConfirmed && 
+                                                    <div className="validation__error">
+                                                        Неверный пароль или имя пользователя
+                                                    </div>
+                                                    }
                             </form> 
                             </div>
                         );

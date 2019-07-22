@@ -34,6 +34,7 @@
         if($num > 0) {
             $user_add = array();
             $user_arr['data'] = array();
+            
             while($row = $result->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
                 $user_item = array (
@@ -53,10 +54,12 @@
                     //$_SESSION['timeshift'] = $user_item['timeshift'];
                     unset($user_item['hash']);
                     array_push($user_arr['data'],$user_item);
+                    break;
                 }
             }
-            if(isset($user_arr['data'])) {
-                $user_arr['status'] = 'success';
+            //var_dump($user_arr);
+            if(isset($user_arr['data']) && !empty($user_arr['data'])) {
+                $user_arr['data'][0]['status'] = 'success';
                 echo json_encode($user_arr['data'][0],true);
             }
             else {

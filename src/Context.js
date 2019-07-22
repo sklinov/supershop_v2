@@ -9,7 +9,7 @@ const reducer = (state, action) => {
   //let loggedIn;
   switch(action.type) {
     case 'ADD_TO_CART':
-        console.log(state);
+        //console.log(state);
         inCart = groupProducts(state.inCart,action.payload);
         return {
           ...state,
@@ -37,20 +37,40 @@ const reducer = (state, action) => {
           inCart : inCart, 
           inCartTotal: updateTotal(inCart)
         };
+    case 'CLEAR_CART': 
+        return {
+          ...state,
+          inCart: [],
+          inCartTotal: 0
+        }
     case 'USER_LOGIN': 
+        console.log("dispatch");
         user = action.payload;
         return {
           ...state,
           user: user,
           loggedIn: true
         };
-
+    case 'USER_EDIT': 
+        
+        user = action.payload;
+        console.log(user);
+        return {
+          ...state,
+          user: user
+        };
     case 'CHECKOUT_SIGN_UP':
-      console.log(action.payload);
       user = action.payload;
       return {
         ...state,
         user: user,
+      }
+    case 'SIGN_UP_MAIN':
+      user = action.payload;
+      return {
+        ...state,
+        user: user,
+        loggedIn: true
       }
     case 'CATEGORY_ADD':
         return {
@@ -75,8 +95,12 @@ const reducer = (state, action) => {
         categories: categories
       };
     case 'CHECKOUT_DELIVERY':
+      var orderInfo = action.orderPayload;
+      var userInfo = Object.assign({},state.user, action.userPayload);
       return {
-        ...state
+        ...state,
+        order: orderInfo,
+        user: userInfo
       };
     default:
         return state;
@@ -146,6 +170,7 @@ class Provider extends Component {
           inCart: [],
           inCartTotal: 0,
           user: undefined,
+          order: undefined,
           loggedIn: false,
           dispatch: action => this.setState( state => reducer(state,action))         
         };

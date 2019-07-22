@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Consumer} from '../../Context'
+import {Consumer, Context } from '../../Context'
 
 export default class Delivery extends Component {
     constructor(props) {
@@ -12,7 +12,8 @@ export default class Delivery extends Component {
             shippingMethodId: 0,
             comment: "",
             shippingMethods: [],
-            shippingMethodsAreLoaded: false, 
+            shippingMethodsAreLoaded: false,
+            isLoaded: false 
         };
     }
 
@@ -38,20 +39,53 @@ export default class Delivery extends Component {
 
     continue = (dispatch, e) => {
         e.preventDefault();
-        let payload = { city: this.state.city,
-                        street: this.state.street,
-                        building: this.state.building,
-                        flat: this.state.flat,
-                        shippingMethodId: this.state.shippingMethodId,
-                        comment: this.state.comment};
+        let userPayload = { city: this.state.city,
+                            street: this.state.street,
+                            building: this.state.building,
+                            flat: this.state.flat,
+                            };
+        let orderPayload = { shippingMethodId: this.state.shippingMethodId,
+                             shippingMethodName: this.state.shippingMethods.find(method => { 
+                                                                                            if(method.id === this.state.shippingMethodId )
+                                                                                            {
+                                                                                                return method;
+                                                                                            } 
+                                                                                            }).shipping,
+                             comment: this.state.comment
+                           };
         dispatch({
             type: 'CHECKOUT_DELIVERY',
-            payload: payload
+            userPayload,
+            orderPayload
         });
     }
 
+    fillValues = (value) => {
+        const { user, loggedIn } = value;
+        const userData = user; 
+        if(userData !== undefined)
+        {
+            if(loggedIn && !this.state.isLoaded) {
+                this.setState({
+                    city: userData.city,
+                    street: userData.street,
+                    building: userData.building,
+                    flat: userData.flat,
+                    isLoaded: true
+                });
+            }
+        }
+    }
+
     componentDidMount() {
+        let value = this.context;
+        this.fillValues(value);
         this.getShippingMethods();
+    }
+
+    componentDidUpdate() {
+        let value = this.context;
+        this.fillValues(value);
     }
 
 
@@ -61,7 +95,7 @@ export default class Delivery extends Component {
             {
                 value=> {
                     const { user, dispatch } = value;
-                    const { shippingMethods, shippingMethodsAreLoaded } = this.state;
+                    const { city, street, building, flat, comment, shippingMethods, shippingMethodsAreLoaded } = this.state;
                     return (
                         <form>
                         <div className="checkout__row">
@@ -69,16 +103,16 @@ export default class Delivery extends Component {
                                 <div className="checkout__container checkout__width-3">
                                     <h5 className="checkout__header">Адрес доставки</h5>
                                     <label className="checkout__label">Город:</label><br />
-                                    <input className="checkout__input" type="text" name="city" onChange={this.handleChange}></input>
+                                    <input className="checkout__input" type="text" name="city" value={city} onChange={this.handleChange}></input>
 
                                     <label className="checkout__label">Улица:</label><br />
-                                    <input className="checkout__input" type="text" name="street" onChange={this.handleChange}></input>
+                                    <input className="checkout__input" type="text" name="street" value={street} onChange={this.handleChange}></input>
 
                                     <label className="checkout__label">Дом:</label><br />
-                                    <input className="checkout__input" type="text" name="building" onChange={this.handleChange}></input>
+                                    <input className="checkout__input" type="text" name="building" value={building} onChange={this.handleChange}></input>
 
                                     <label className="checkout__label">Квартира:</label><br />
-                                    <input className="checkout__input" type="text" name="flat" onChange={this.handleChange}></input>
+                                    <input className="checkout__input" type="text" name="flat" value={flat} onChange={this.handleChange}></input>
                                 </div>
                                 <div className="checkout__container checkout__width-3">
                                     <h5 className="checkout__header">Способ доставки</h5>
@@ -87,7 +121,7 @@ export default class Delivery extends Component {
                                         shippingMethods.map(shipping => {
                                             return (
                                                 <label key={shipping.id}>
-                                                <input type="radio" value={shipping.id} name="shippingMethodId" />
+                                                <input type="radio" value={shipping.id} name="shippingMethodId" onChange={this.handleChange} />
                                                     {shipping.shipping}
                                                 </label>
                                             )
@@ -109,3 +143,5 @@ export default class Delivery extends Component {
         )
     }
 }
+
+Delivery.contextType = Context;

@@ -25,10 +25,7 @@ class App extends Component {
             <div className="App">         
               <Route path="/admin/" component={Admin} />
               <Route path="/shop/" component={Shop}>
-                  {/* <Header match={this.props.match} />
-                  <Route exact path="/" component={Category} />
-                  <Route path="category/:id" component={Category} />
-                  <Route path="product/:id" component={Product} /> */}
+                  
               </Route>    
             </div>
           </Router>
