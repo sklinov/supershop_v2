@@ -28,6 +28,7 @@ export default class Product extends Component {
             payload: product
         });   
     }
+
     applyCurrentProduct = (product) => {
         this.setState({
             product
@@ -51,7 +52,7 @@ export default class Product extends Component {
                         <div className="product__container">
                             <div className="product__column">
                             <div className="product__image">
-                                <Images images={product} />
+                                <Images product_id={product.id} product_name={product.name} />
                             </div>
                             </div>
                             <div className="product__column">

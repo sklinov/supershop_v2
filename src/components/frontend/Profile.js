@@ -73,17 +73,7 @@ export default class Profile extends Component {
                    building: state.building,
                    flat: state.flat
                 };
-                // payload['id']=state.id;
-                // payload['name']=state.name;
-                // payload['email']=state.email;
-                // payload['phone']=state.phone;
-                // payload['city']=state.city;
-                // payload['street']=state.street;
-                // payload['building']=state.building;
-                // payload['flat']=state.flat;
                 console.log(payload);
-                // let userInfo = JSON.stringify(payload);
-                // console.log(userInfo);
                 dispatch({
                     type: 'USER_EDIT',
                     payload: payload 

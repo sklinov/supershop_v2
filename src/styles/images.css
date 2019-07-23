@@ -3,3 +3,16 @@
     height: 470px;
     object-fit: contain;
 }
+
+.image__thumb {
+    width: 56px;
+    height: 56px;
+    margin: 18px;
+    object-fit: contain;
+    cursor: pointer;
+    border: 1px solid transparent;    
+}
+
+.image__thumb:hover {
+    border: 1px solid lightgrey;    
+}
