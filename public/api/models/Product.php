@@ -14,6 +14,7 @@
         public $old_price;
         public $quantity;
         public $image_id;
+        public $image_main;
         public $available;
         public $badge_id;
         public $badge_name;
@@ -290,16 +291,45 @@
         }
 
         public function addImageByProductId() {
+            $this->image_main = $this->checkIfMainImageAssigned() ? 0 : 1;
             $query = 'INSERT INTO `product_image`
                         SET product_id=:product_id,
-                            image_url=:image_url
+                            image_url=:image_url,
+                            image_main=:image_main
             ';
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':product_id',$this->id);
+            $stmt->bindParam(':image_main',$this->image_main);
             $stmt->bindParam(':image_url',$this->image_url);
             $stmt->execute();
             return $stmt; 
         }
+
+        public function checkIfMainImageAssigned() {
+            $query = "SELECT CASE WHEN EXISTS (
+                SELECT *
+                FROM `product_image`
+                WHERE product_id =:product_id AND image_main='1'
+            )
+            THEN CAST(1 AS BINARY)
+            ELSE CAST(0 AS BINARY) END";
+            
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':product_id',$this->id);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_NUM);
+            //var_dump($result);
+            
+            if(intval($result[0])==1) {
+                return true;
+            }
+            else if (intval($result[0])==0)
+            {
+                return false;
+            } 
+        }
+
+
 
         public function getOptionsByProductId() {
             $query = 'SELECT

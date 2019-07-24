@@ -6,10 +6,7 @@ import './App.css';
 
 import Admin from "./components/admin/Admin"
 import Shop from "./components/frontend/Shop"
-// import Logo from "./components/frontend/Logo"
-// import Category from "./components/frontend/Category"
-// import Product from "./components/frontend/Product"
-// import Header from "./components/frontend/Header"
+import Start from './components/frontend/Start';
 
 import {Provider} from './Context';
 
@@ -22,7 +19,8 @@ class App extends Component {
       <CookiesProvider>
         <Provider>
           <Router history={history}>
-            <div className="App">         
+            <div className="App">
+              <Route exact path="/" component={Start} />         
               <Route path="/admin/" component={Admin} />
               <Route path="/shop/" component={Shop}>
                   

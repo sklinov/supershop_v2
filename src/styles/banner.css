@@ -1,0 +1,19 @@
+.banner {
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    min-width: 1170px;
+}
+
+
+.banner__text {
+    z-index: 2;
+    position: relative;
+    text-align: left;
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 200px;
+}

@@ -63,12 +63,12 @@ export default class Images extends Component {
     if(images.length > 0 && imageToShow!== undefined) {
       return (
         <div>
-          <img src={"/img/product/"+imageToShow.image_url} alt={ product_name } className="image__main"/>
+          <img src={process.env.PUBLIC_URL +"/img/product/"+imageToShow.image_url} alt={ product_name } className="image__main"/>
           <div>
               {
                 images.map(image => {
                   return(
-                    <img src={"/img/product/"+image.image_url} alt={product_name} className="image__thumb" key={image.image_id} onClick={(e) => this.setImage(image.image_id)}/>
+                    <img src={process.env.PUBLIC_URL +"/img/product/"+image.image_url} alt={product_name} className="image__thumb" key={image.image_id} onClick={(e) => this.setImage(image.image_id)}/>
                   )
                 })
               }

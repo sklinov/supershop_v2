@@ -7,6 +7,7 @@
 @import url('styles/accordion.css');
 @import url('styles/checkout.css');
 @import url('styles/profile.css');
+@import url('styles/banner.css');
 
 
 body {
@@ -21,6 +22,7 @@ body {
   font-family: Supermolot, sans-serif;
   text-align: center;
   background-color: #DEE1E3;
+  z-index: 1;
 }
 
 a {
@@ -34,4 +36,13 @@ a:hover {
 
 .link-nondecorated:hover {
   text-decoration: none;
+}
+
+.start {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  padding-top: 50px;
 }

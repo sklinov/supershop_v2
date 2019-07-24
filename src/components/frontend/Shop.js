@@ -9,6 +9,7 @@ import OrderSuccess from '../frontend/OrderSuccess'
 import SignUpMain from './SignUpMain';
 import LoginMain from './LoginMain';
 import Profile from './Profile';
+import Banner from './Banner';
 
 export default class Shop extends Component {
     constructor(props) {
@@ -21,6 +22,7 @@ export default class Shop extends Component {
         return (
             <div>
                     <Header match={this.props.match}/>
+                    <Route exact path={`${this.props.match.url}/`} component={Banner} />
                     <Route exact path={`${this.props.match.url}/`} component={Category} />
                     <Route path={`${this.props.match.url}/category/:id`} component={Category} />
                     <Route path={`${this.props.match.url}/product/:id`} component={Product} />

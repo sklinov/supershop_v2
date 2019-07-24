@@ -140,7 +140,7 @@ export default class UserEdit extends Component {
                         </div>
                     </div>
                     <div className="distribute">
-                        <span className="link link-danger">Удалить пользователя</span>
+                        {/* <span className="link link-danger">Удалить пользователя</span> */}
                         <span className="link link-success" onClick={this.saveChanges.bind(this)}>Сохранить изменения</span>
                     </div>
                     {this.state.isSaved && <div>Изменения сохранены</div>}

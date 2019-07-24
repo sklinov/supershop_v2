@@ -23,7 +23,9 @@
     $product->badge_id = isset($_POST['badge_id'])? $_POST['badge_id']: 7;
     $product->id_category = isset($_POST['id_category'])? $_POST['id_category']: NULL;
 
-    var_dump($_POST);
+    //var_dump($_POST);
+    $status;
+    $message = "";
 
     if($product->id != 0 && $product->name)
     {
@@ -33,17 +35,21 @@
         {
             $category_result = $product->updateProductCategory();
         }
-        echo json_encode("product edited",true);
+        $status = 'Успех';
+        $message .= 'Товар '.$product->name.' отредактирован.';
     } 
     else if($product->id == 0 && $product->name) {
         $product->productAdd();
         $product->addProductToCategory();
+        $status = 'Успех';
+        $message .= 'Товар '.$product->name.' добавлен';
     }
     else {
-        echo json_encode("product NOT edited",true);
+        $status = 'Ошибка';
+        $message .= 'Товар '.$product->name.' НЕ был отредактирован.';
     }
 
-    $uploaddir = dirname(dirname(dirname(dirname(__FILE__)))).'/img/product';
+    $uploaddir = dirname(dirname(dirname(dirname(__FILE__)))).'/img/product/';
     if(isset($_FILES['files']))
     {   
         $num_of_files = count($_FILES['files']['name']);
@@ -59,19 +65,21 @@
                     if (move_uploaded_file($_FILES['files']['tmp_name'][$i], $uploadfile)) {
                         $product->image_url = $product->id."_".time()."__".basename($_FILES['files']['name'][$i]);
                         $product->addImageByProductId();
-                        //echo "Файл ". $_FILES['files']['name'] ." был успешно загружен.\n";
+                        $message .= "Файл ". $_FILES['files']['name'] ." был успешно загружен.\n";
                     } 
                     else {
-                        echo "Ошибка загрузки файла:".$_FILES['files']['error'][$i];
+                        $message .= "Ошибка загрузки файла:".$_FILES['files']['error'][$i];
                     }
                 }
                 else {
-                    echo "Тип файла не подходит для загрузки.\n";
+                    $message .= "Тип файла не подходит для загрузки.\n";
                 }
             }
             else {
-                echo "Размер файла больше 3Мб и он не будет загружен \n";
+                $message .= "Размер файла больше 3Мб и он не будет загружен \n";
             }
         }
         
     }
+
+    echo json_encode(array('status' => $status, 'message' => $message));

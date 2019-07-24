@@ -53,7 +53,7 @@ export default class Cart extends Component {
                                 <React.Fragment>
                                 <table className="cart__table">
                                     <thead className="cart__tableheader">
-                                        <tr>
+                                        <tr className="cart__headerrow">
                                             <th>Товар</th>
                                             <th></th>
                                             <th>Доступность</th>
@@ -71,7 +71,7 @@ export default class Cart extends Component {
                                         //Each item in cart
                                         <tr key={item.id} className="cart__row">
                                             <td className="cart__img">
-                                                <img src={"/img/product/"+item.image_url} alt={item.name} className="cart__img" />
+                                                <img src={process.env.PUBLIC_URL +"/img/product/"+item.image_url} alt={item.name} className="cart__img" />
                                             </td>
                                             <td className="cart__name">
                                                 {item.name}

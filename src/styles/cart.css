@@ -10,6 +10,10 @@
 .cart__tableheader {
     border-bottom: 2px solid #f6f6f6;
     font-size: 14px;
+   
+}
+
+.cart__headerrow:nth-child(n) {
     padding-top: 30px;
     padding-bottom: 30px;
 }

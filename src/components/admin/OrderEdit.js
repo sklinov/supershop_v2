@@ -305,7 +305,7 @@ export default class OrderEdit extends Component {
                             </div> 
                         </div>
                         <div className="distribute">
-                            <span className="link link-danger">Отменить изменения</span>
+                            {/* <span className="link link-danger">Отменить изменения</span> */}
                             <span className="link link-success" onClick={this.saveChanges.bind(this)}>Сохранить изменения</span>
                         </div>
                    </form>

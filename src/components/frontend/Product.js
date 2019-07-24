@@ -3,6 +3,7 @@ import Images from '../frontend/Images'
 import '../../styles/product.css'
 import {Consumer} from '../../Context'
 import Spinner from '../frontend/Spinner'
+import CategoryItems from './CategoryItems';
 
 export default class Product extends Component {
     constructor(props) {
@@ -29,19 +30,13 @@ export default class Product extends Component {
         });   
     }
 
-    applyCurrentProduct = (product) => {
-        this.setState({
-            product
-        });
-    }
-
     render() {
         const { buttonLabel } = this.state;       
         return (
         <Consumer>
         {
             value => {
-                const {dispatch, products} = value;
+                const {dispatch, products, categories} = value;
                 if(products === undefined || products.length === 0) {
                     return <Spinner />
                 } else {
@@ -49,6 +44,7 @@ export default class Product extends Component {
                     const product = products.find(prod => prod.id === this.state.productId)
                   
                     return (
+                        <React.Fragment>
                         <div className="product__container">
                             <div className="product__column">
                             <div className="product__image">
@@ -90,6 +86,17 @@ export default class Product extends Component {
                             </div>
                             </div>
                         </div>
+                        <div  className="product__container category__container">
+                            <div className="ategory__column">
+                            
+                                <h3 className="category__title">Другие товары из категории {categories.find(category => category.id === product.id_category).name}</h3>
+                            
+                                <div className="product__container category__container">
+                                <CategoryItems id_category={product.id_category} inProduct={true} id_product={product.id}/>
+                                </div>
+                            </div>
+                        </div>
+                        </React.Fragment>
                     )
                 }
             }

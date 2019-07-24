@@ -24,7 +24,9 @@ export default class ProductEdit extends Component {
             categories: [],
             isLoaded: false,
             isSaved: false,
-            isNew: false
+            isNew: false,
+            status: "",
+            message: "",
         };
     }
     
@@ -83,9 +85,9 @@ export default class ProductEdit extends Component {
         this.state.filesToAdd.forEach((file) => {
             formData.append('files[]', file);
         });
-        //formData.append('options', this.state.options);
-        //console.log(formData);
         
+        var status;
+        var message;
         const url = "/api/products/edit.php";
         let headers = new Headers();
         delete headers['Content-Type'];
@@ -97,6 +99,8 @@ export default class ProductEdit extends Component {
         fetch(url,options).then(response => response.json())
         .then(
         (result) => {
+            status = result.status;
+            message = result.message;
             const url2 = "/api/products/products.php";
             fetch(url2, {
                 method: "GET",
@@ -115,7 +119,7 @@ export default class ProductEdit extends Component {
                         type: 'PRODUCT_EDIT',
                         payload
                         }); 
-                    this.setState({isSaved: true});
+                    this.setState({isSaved: true, status, message});
                 },
                 (error) => {
                     console.log(error);
@@ -278,7 +282,7 @@ export default class ProductEdit extends Component {
                                                 <div className="card__col">
                                                     <div className="card__imageblock">
                                                         
-                                                            <img className="card__image" src={process.env.PUBLIC_URL+'/img/product'+image.image_url} alt={name}/>
+                                                            <img className="card__image" src={process.env.PUBLIC_URL+'/img/product/'+image.image_url} alt={name}/>
                                                         
                                                     </div>
                                                 </div>
@@ -321,7 +325,7 @@ export default class ProductEdit extends Component {
                                         return (
                                             <React.Fragment key={option.option_id}>
                                                 <input type="text" className="form__input-field" name="option" value={option.option_name} readOnly/>
-                                                <span className="link link-danger">Удалить</span><br />
+                                                {/* <span className="link link-danger">Удалить</span><br /> */}
                                             </React.Fragment>
                                         )
                                     })
@@ -330,10 +334,15 @@ export default class ProductEdit extends Component {
                         </div>
                     </div>
                     <div className="distribute">
-                        <span className="link link-danger">Удалить товар</span>
+                        {/* <span className="link link-danger">Удалить товар</span> */}
                         <span className="link link-success" onClick={this.saveChanges.bind(this, dispatch)}>Сохранить изменения</span>
                     </div>
-                    {this.state.isSaved && <div>Изменения сохранены</div>}
+                    {this.state.isSaved && 
+                    <div>
+                        <p>Результат операции: {this.state.status}</p>
+                        <p>Сообщение: {this.state.message}</p>
+
+                    </div>}
                 </form> 
             </div>
             </React.Fragment>
