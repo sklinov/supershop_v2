@@ -15,7 +15,7 @@ export default class CartInHeader extends Component {
     return (
       <div className="cart-h">
         
-        <Link to="/shop/cart/">
+        <Link to={process.env.PUBLIC_URL+"/shop/cart/"}>
         <Consumer>
         {
           value => {

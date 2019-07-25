@@ -54,7 +54,7 @@ export default class Profile extends Component {
         if(this.state.password.length >0 && this.state.pwIsConfirmed) {
             formData.append('password', this.state.password);
         }
-        const url = "/api/users/edit.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/users/edit.php";
         fetch(url, {
             method: "POST",
             body: formData
@@ -107,7 +107,7 @@ export default class Profile extends Component {
 
     getUserOrders() {
         console.log(this.state.id);
-        const url = "/api/orders/getuserorders.php?id_user="+this.state.id;
+        const url = process.env.PUBLIC_URL+ "/api/api/orders/getuserorders.php?id_user="+this.state.id;
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(

@@ -24,7 +24,7 @@ export default class OrderSuccess extends Component {
                         <p>
                             В ближайшее время с вами свяжется оператор для уточнения времени доставки.
                         </p>
-                        <Link to="/shop/">
+                        <Link to={process.env.PUBLIC_URL+"/shop/"}>
                             <button type="button" className="button button-primary">Вернуться в магазин</button>
                         </Link> 
                     </div>
@@ -51,7 +51,7 @@ export default class OrderSuccess extends Component {
                         <p>
                             В ближайшее время с вами свяжется оператор для уточнения времени доставки.
                         </p>
-                        <Link to="/shop/">
+                        <Link to={process.env.PUBLIC_URL+"/shop/"}>
                             <button type="button" className="button button-primary">Вернуться в магазин</button>
                         </Link> 
                         </div>

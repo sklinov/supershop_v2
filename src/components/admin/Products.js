@@ -61,7 +61,7 @@ export default class Products extends Component {
                                             <tr className="table__row" key={product.id}>
                                                 <td className="table__cell">{product.name}</td>
                                                 <td className="table__cell">{product.price}</td>
-                                                <td className="table__cell"><Link to={"/admin/products/"+product.id}>просмотр</Link></td>
+                                                <td className="table__cell"><Link to={process.env.PUBLIC_URL+"/admin/products/"+product.id}>просмотр</Link></td>
                                             </tr>
                                         ) 
                                 })
@@ -74,7 +74,7 @@ export default class Products extends Component {
                     }
                 }
                 </Consumer>
-                <Link to={"/admin/products/new"}>Добавить товар</Link>
+                <Link to={process.env.PUBLIC_URL+"/admin/products/new"}>Добавить товар</Link>
             </div>
         )
     }

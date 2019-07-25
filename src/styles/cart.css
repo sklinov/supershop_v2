@@ -57,7 +57,7 @@
     background-color: #021563;
     width: 194px;
     height: 62px;
-    background-image: url('/img/cart.png');
+    background-image: url('../img/cart.png');
     background-repeat: no-repeat;
     background-position: 90% 50%;
     text-align: left;

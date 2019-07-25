@@ -24,7 +24,7 @@ export default class LoginMain extends Component {
         e.preventDefault();
         let payload = {email: this.state.email,
                        password: this.state.password };
-        const url = "/api/users/login.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/users/login.php";
         fetch(url,{
             method: "POST",
             body: JSON.stringify(payload)
@@ -84,7 +84,7 @@ export default class LoginMain extends Component {
                                     </div>
                                     <div className="checkout__container checkout__container-m-30 checkout__width-half">
                                     <h5 className="checkout__header">Новый пользователь</h5>
-                                    <Link to="shop/signup">
+                                    <Link to= {process.env.PUBLIC_URL+"shop/signup"}>
                                     <button type="button" className="button button-primary">Зарегистрироваться</button>
                                     </Link>                        
                                     </div>

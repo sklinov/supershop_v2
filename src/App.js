@@ -18,11 +18,11 @@ class App extends Component {
     return (
       <CookiesProvider>
         <Provider>
-          <Router history={history}>
+          <Router history={history} basename={'/supershop'}>
             <div className="App">
-              <Route exact path="/" component={Start} />         
-              <Route path="/admin/" component={Admin} />
-              <Route path="/shop/" component={Shop}>
+              <Route exact path={`${process.env.PUBLIC_URL}/`} component={Start} />         
+              <Route path={`${process.env.PUBLIC_URL}/admin/`} component={Admin} />
+              <Route path={`${process.env.PUBLIC_URL}/shop/`} component={Shop}>
                   
               </Route>    
             </div>

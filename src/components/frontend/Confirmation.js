@@ -24,7 +24,7 @@ export default class Confirmation extends Component {
             
             console.log(formData);
             
-            const url = "/api/orders/add.php";
+            const url = process.env.PUBLIC_URL+ "/api/api/orders/add.php";
             fetch(url, {
                 method: "POST",
                 body: formData

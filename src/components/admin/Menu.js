@@ -9,16 +9,16 @@ export default class Menu extends Component {
             <div className="adminmenu">
                 <Logo />
                 <div className="adminmenu__item">
-                    <Link to="/admin/orders/">Заказы</Link>
+                    <Link to={process.env.PUBLIC_URL+"/admin/orders/"}>Заказы</Link>
                 </div>
                 <div className="adminmenu__item">
-                    <Link to="/admin/users/">Пользователи</Link>
+                    <Link to={process.env.PUBLIC_URL+"/admin/users/"}>Пользователи</Link>
                 </div>
                 <div className="adminmenu__item">
-                    <Link to="/admin/products/">Товары</Link>
+                    <Link to={process.env.PUBLIC_URL+"/admin/products/"}>Товары</Link>
                 </div>
                 <div className="adminmenu__item">
-                    <Link to="/admin/categories/">Категории</Link>
+                    <Link to={process.env.PUBLIC_URL+"/admin/categories/"}>Категории</Link>
                 </div>
             </div>
         )

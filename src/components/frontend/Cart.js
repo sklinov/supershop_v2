@@ -110,7 +110,7 @@ export default class Cart extends Component {
                                 </div>
                                 <div className="cart__buttoncontainer">
                                     <button className="button button-secondary"> Вернуться к покупкам </button>
-                                    <Link to="/shop/checkout"><button className="button button-primary"> Оформить заказ </button></Link>
+                                    <Link to={process.env.PUBLIC_URL+"/shop/checkout"}><button className="button button-primary"> Оформить заказ </button></Link>
                                 </div>
                                 </React.Fragment>
                                   

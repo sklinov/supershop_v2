@@ -42,7 +42,7 @@ export default class CategoryItems extends Component {
                                    } 
                                 }).map(product => {
                                     return (
-                                    <Link to={"/shop/product/"+product.id} key={product.id}>
+                                    <Link to={process.env.PUBLIC_URL+"/shop/product/"+product.id} key={product.id}>
                                         <div className="category__item">
                                             <div className="item__imagebox"> 
                                                 <img src={process.env.PUBLIC_URL +"/img/product/"+product.image_url} alt={product.name} className="item__image"/>
