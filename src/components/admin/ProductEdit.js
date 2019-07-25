@@ -88,7 +88,7 @@ export default class ProductEdit extends Component {
         
         var status;
         var message;
-        const url = "/api/products/edit.php";
+        const url = process.env.PUBLIC_URL+"/api/api/products/edit.php";
         let headers = new Headers();
         delete headers['Content-Type'];
         const options = {
@@ -101,7 +101,7 @@ export default class ProductEdit extends Component {
         (result) => {
             status = result.status;
             message = result.message;
-            const url2 = "/api/products/products.php";
+            const url2 = process.env.PUBLIC_URL+"/api/api/products/products.php";
             fetch(url2, {
                 method: "GET",
             }).then(response => response.json())
@@ -109,7 +109,7 @@ export default class ProductEdit extends Component {
             (result2) => {
                 var payload = {products: [], categories: []};
                 payload.products = result2.data;
-                const url3 = "/api/categories/categories.php";
+                const url3 = process.env.PUBLIC_URL+"/api/api/categories/categories.php";
                 fetch(url3, {method: "GET"})
                 .then(response =>response.json())
                 .then(
@@ -135,7 +135,7 @@ export default class ProductEdit extends Component {
     }
 
     getBadges() {
-        const url = "/api/products/getbadges.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/products/getbadges.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -148,7 +148,7 @@ export default class ProductEdit extends Component {
     }
 
     getOptions() {
-        const url = "/api/products/getoptions.php?id="+this.state.id;
+        const url = process.env.PUBLIC_URL+ "/api/api/products/getoptions.php?id="+this.state.id;
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -161,7 +161,7 @@ export default class ProductEdit extends Component {
     }
     
     getImages() {
-        const url = "/api/products/getimages.php?id="+this.state.id;
+        const url = process.env.PUBLIC_URL+ "/api/api/products/getimages.php?id="+this.state.id;
         fetch(url,{
         method: "GET"
         }).then(response => response.json())

@@ -32,7 +32,7 @@ export default class OrderEdit extends Component {
 
     getOrderInfo() {
         if(this.props.match.params.id) {
-            const url = "/api/orders/order.php?id="+this.props.match.params.id;
+            const url = process.env.PUBLIC_URL+"/api/api/orders/order.php?id="+this.props.match.params.id;
             fetch(url,{ method: "GET" })
             .then(response => response.json())
             .then(
@@ -64,7 +64,7 @@ export default class OrderEdit extends Component {
     }
 
     getOrderProducts() {
-            const url = "/api/orders/products.php?id="+this.state.id;
+            const url = process.env.PUBLIC_URL+ "/api/api/orders/products.php?id="+this.state.id;
             fetch(url,{ method: "GET" })
             .then(response => response.json())
             .then(
@@ -80,7 +80,7 @@ export default class OrderEdit extends Component {
     }
 
     getStatuses() {
-        const url = "/api/orders/getstatuses.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/orders/getstatuses.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -94,7 +94,7 @@ export default class OrderEdit extends Component {
     }
 
     getShippingMethods() {
-        const url = "/api/orders/getshippingmethods.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/orders/getshippingmethods.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -113,7 +113,7 @@ export default class OrderEdit extends Component {
         const newStatusId = e.target.value;
         formData.append('id_order', orderId);
         formData.append('id_status', newStatusId);
-        const url = "/api/orders/changeorderstatus.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/orders/changeorderstatus.php";
         fetch(url,{ method: "POST", body: formData })
         .then(response => response.json())
         .then(
@@ -178,7 +178,7 @@ export default class OrderEdit extends Component {
         
         console.log(formData);
 
-        const url = "/api/orders/edit.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/orders/edit.php";
         fetch(url, {
             method: "POST",
             body: formData

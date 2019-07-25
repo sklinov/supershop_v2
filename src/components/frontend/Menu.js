@@ -22,7 +22,7 @@ export default class Menu extends Component {
                         } else {
                             return (
                                 categories.map(cat => {
-                                 return <Link to={"/shop/category/"+cat.id} key={cat.id} className="menu__item">{cat.name}</Link>
+                                 return <Link to={process.env.PUBLIC_URL+"/shop/category/"+cat.id} key={cat.id} className="menu__item">{cat.name}</Link>
                                 }))                           
                         }                                                
                     }

@@ -14,7 +14,7 @@ export default class Orders extends Component {
     }
 
     getOrders() {
-        const url = "/api/orders/getorders.php";
+        const url = process.env.PUBLIC_URL+"/api/api/orders/getorders.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -27,7 +27,7 @@ export default class Orders extends Component {
         });
     }
     getStatuses() {
-        const url = "/api/orders/getstatuses.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/orders/getstatuses.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -46,7 +46,7 @@ export default class Orders extends Component {
         const newStatusId = e.target.value;
         formData.append('id_order', orderId);
         formData.append('id_status', newStatusId);
-        const url = "/api/orders/changeorderstatus.php";
+        const url =  process.env.PUBLIC_URL+ "/api/api/orders/changeorderstatus.php";
         fetch(url,{ method: "POST", body: formData })
         .then(response => response.json())
         .then(
@@ -101,7 +101,7 @@ export default class Orders extends Component {
                                                 </td>
                                                 <td className="table__cell">{Number(order.total).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' } )}</td>
                                                 <td className="table__cell">{order.datetime}</td>
-                                                <td className="table__cell"><Link to={"/admin/orders/"+order.id}>просмотр</Link></td>
+                                                <td className="table__cell"><Link to={process.env.PUBLIC_URL+"/admin/orders/"+order.id}>просмотр</Link></td>
                                             </tr>
                                         )
                                     })

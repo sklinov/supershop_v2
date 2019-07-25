@@ -2,6 +2,7 @@
   "name": "supershop",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://nonbreakable.space/supershop",
   "dependencies": {
     "axios": ">=0.19.0",
     "react": "^16.8.6",
@@ -19,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost/supershop/public/api/",
+  "proxy": "http://localhost/supershop/public/",
   "eslintConfig": {
     "extends": "react-app"
   },

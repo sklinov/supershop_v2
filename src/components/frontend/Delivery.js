@@ -18,7 +18,7 @@ export default class Delivery extends Component {
     }
 
     getShippingMethods() {
-        const url = "/api/orders/getshippingmethods.php";
+        const url = process.env.PUBLIC_URL+"/api/api/orders/getshippingmethods.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(

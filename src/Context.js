@@ -182,7 +182,8 @@ class Provider extends Component {
     }
     
     getAllCategories = () => {
-      const url = "/api/categories/categories.php"; 
+      const url = process.env.PUBLIC_URL+`/api/api/categories/categories.php`; 
+      //console.log(url);
       axios.get(url)
         .then(res => {
         const categories = res.data.data;
@@ -193,7 +194,7 @@ class Provider extends Component {
     }
 
     getProductsByCategoryId = () => {
-      const url = "/api/products/products.php?category="+this.state.categoryId;
+      const url = process.env.PUBLIC_URL+"/api/api/products/products.php?category="+this.state.categoryId;
       axios.get(url)
         .then(res => {
         const products = res.data.data;

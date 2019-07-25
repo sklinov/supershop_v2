@@ -48,14 +48,14 @@ export default class CategoryEdit extends Component {
     saveChanges = (dispatch, e) => {
         e.preventDefault();
         let data = {id : this.state.id , name: this.state.name, title: this.state.title, description: this.state.description};
-        const url = "/api/categories/edit.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/categories/edit.php";
         fetch(url,{
         method: "POST",
         body: JSON.stringify(data)
         }).then(response => response.json())
         .then(
         (result) => {
-            const url2 = "/api/categories/categories.php";
+            const url2 = process.env.PUBLIC_URL+ "/api/api/categories/categories.php";
             fetch(url2, {
                 method: "GET",
             }).then(response => response.json())
@@ -107,7 +107,7 @@ export default class CategoryEdit extends Component {
                         <textarea className="form__input-field" name="description" value={description} onChange={this.handleChange} /><br />
                         
                         <button type="submit" className="admin__button admin__button-success" >Сохранить</button>
-                        <Link to="/admin/categories/" renderas="button"><button type="button" className="admin__button admin__button-secondary">Отмена</button></Link>
+                        <Link to={process.env.PUBLIC_URL+"/admin/categories/"} renderas="button"><button type="button" className="admin__button admin__button-secondary">Отмена</button></Link>
                         {this.state.isSaved && <div>Изменения сохранены</div>}
                     </form>
                     

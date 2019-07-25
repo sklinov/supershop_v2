@@ -28,7 +28,7 @@ export default class UserEdit extends Component {
 
     getUserInfo() {
         if(this.props.match.params.id) {
-            const url = "/api/users/user.php?id="+this.props.match.params.id;
+            const url = process.env.PUBLIC_URL+ "/api/api/users/user.php?id="+this.props.match.params.id;
             fetch(url,{ method: "GET" })
             .then(response => response.json())
             .then(
@@ -51,7 +51,7 @@ export default class UserEdit extends Component {
     }
 
     getUserOrders() {
-        const url = "/api/orders/getuserorders.php?id_user="+this.state.id;
+        const url =process.env.PUBLIC_URL+ "/api/api/orders/getuserorders.php?id_user="+this.state.id;
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -80,7 +80,7 @@ export default class UserEdit extends Component {
         formData.append('building',this.state.building);
         formData.append('flat',this.state.flat);
 
-        const url = "/api/users/edit.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/users/edit.php";
         fetch(url, {
             method: "POST",
             body: formData

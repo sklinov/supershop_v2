@@ -12,7 +12,7 @@ export default class Users extends Component {
     }
 
     getUsers() {
-        const url = "/api/users/getusers.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/users/getusers.php";
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
@@ -65,7 +65,7 @@ export default class Users extends Component {
                                             <td className="table__cell">{user.user_name}</td>
                                             <td className="table__cell">{user.user_email}</td>
                                             <td className="table__cell">{user.user_phone}</td>
-                                            <td className="table__cell"><Link to={"/admin/users/"+user.user_id}>просмотр</Link></td>
+                                            <td className="table__cell"><Link to={process.env.PUBLIC_URL+"/admin/users/"+user.user_id}>просмотр</Link></td>
                                         </tr>
                                     )
                                 })

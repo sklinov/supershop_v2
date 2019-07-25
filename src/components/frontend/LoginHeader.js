@@ -12,16 +12,16 @@ export default class LoginHeader extends Component {
           if(loggedIn) {
             return (
               <div className="login__container">
-                <Link to="/shop/profile" className="login__enter">{user.email}</Link>
+                <Link to={process.env.PUBLIC_URL+"/shop/profile"} className="login__enter">{user.email}</Link>
               </div>
             )
           }
           else {
             return (
               <div className="login__container">
-                <Link to="/shop/login" className="login__enter" > Войти </Link>
+                <Link to={process.env.PUBLIC_URL+"/shop/login"} className="login__enter" > Войти </Link>
                 <span>&nbsp;&nbsp;</span>
-                <Link to="/shop/signup" className="login__register"> Регистрация </Link>
+                <Link to={process.env.PUBLIC_URL+"/shop/signup"} className="login__register"> Регистрация </Link>
               </div>
             )
           }   

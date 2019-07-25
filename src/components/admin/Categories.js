@@ -15,7 +15,7 @@ export default class Categories extends Component {
         e.preventDefault();
         const { newCatName } = this.state;
         let payload = {name : newCatName };
-        const url = "/api/categories/add.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/categories/add.php";
         fetch(url,{
             method: "POST",
             body: JSON.stringify(payload)
@@ -37,7 +37,7 @@ export default class Categories extends Component {
         e.preventDefault();
         console.log(id);
         let payload = {id : id};
-        const url = "/api/categories/delete.php";
+        const url = process.env.PUBLIC_URL+ "/api/api/categories/delete.php";
         fetch(url,{
             method: "POST",
             body: JSON.stringify(payload)
@@ -93,7 +93,7 @@ export default class Categories extends Component {
                                                 <td className="table__cell">{cat.quantity}</td>
                                                 {/* eslint-disable-next-line */}
                                                 <td className="table__cell">{ cat.quantity == 0 && <span className="link link-danger" onClick={this.deleteCategory.bind(this, dispatch, cat.id)}>удалить</span>}</td>
-                                                <td className="table__cell"><Link to={"/admin/categories/"+cat.id} key={cat.id}>просмотр</Link></td>
+                                                <td className="table__cell"><Link to={process.env.PUBLIC_URL+"/admin/categories/"+cat.id} key={cat.id}>просмотр</Link></td>
                                             </tr>
                                         ) 
                                 })

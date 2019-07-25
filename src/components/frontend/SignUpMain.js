@@ -48,7 +48,7 @@ export default class SignUpMain extends Component {
                 
                 console.log(formData);
                 
-                const url = "/api/users/add.php";
+                const url = process.env.PUBLIC_URL+ "/api/api/users/add.php";
                 fetch(url, {
                     method: "POST",
                     body: formData

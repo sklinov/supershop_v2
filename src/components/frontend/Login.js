@@ -17,7 +17,7 @@ export default class Login extends Component {
         e.preventDefault();
         let payload = {email: this.state.email,
                        password: this.state.password };
-        const url = "/api/users/login.php";
+        const url = process.env.PUBLIC_URL+"/api/api/users/login.php";
         fetch(url,{
             method: "POST",
             body: JSON.stringify(payload)
