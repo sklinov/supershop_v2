@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Consumer} from '../../Context'
-import MaskedInput from 'react-text-mask'
+// import MaskedInput from 'react-text-mask'
 
 export default class SignUp extends Component {
     constructor(props) {

@@ -4,8 +4,10 @@ import {
     AccordionItem,
     AccordionItemButton,
     AccordionItemHeading,
-    AccordionItemPanel,
+    AccordionItemPanel
 } from 'react-accessible-accordion';
+
+//import Accordion  from 'react-bootstrap/Accordion'
 
 import Login from './Login';
 import SignUp from './SignUp';

@@ -24,7 +24,7 @@ export default class Login extends Component {
           }).then(response => response.json())
           .then(
           (result) => {
-              console.log(result.status);
+              //console.log(result.status);
               if(result.status === 'success')
               {
                 this.setState({loggedIn: true, pwIsConfirmed: true});
@@ -65,7 +65,7 @@ export default class Login extends Component {
                                 <label className="checkout__label">Пароль:</label><br />
                                 <input className="checkout__input" type="password" name="password" onChange={this.handleChange}></input><br /><br />
                                 <button type="button" className="button button-primary" onClick={this.userLogin.bind(this, dispatch)}>Войти</button>
-                                <span className="checkout__link">Восстановить пароль</span>
+                                {/* <span className="checkout__link">Восстановить пароль</span> */}
                                 {!pwIsConfirmed && 
                                                     <div className="validation__error">
                                                         Неверный пароль или имя пользователя

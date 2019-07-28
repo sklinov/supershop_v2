@@ -22,7 +22,7 @@ export default class Confirmation extends Component {
             formData.append('comment',order.comment);
             formData.append('id_shipping',order.shippingMethodId);
             
-            console.log(formData);
+            //console.log(formData);
             
             const url = process.env.PUBLIC_URL+ "/api/api/orders/add.php";
             fetch(url, {
@@ -32,7 +32,7 @@ export default class Confirmation extends Component {
             .then(response => response.json())
             .then(
                 (result) => {
-                    console.log(result.order_id, this.state.isConfirmed, this.state.order_id);
+                    //console.log(result.order_id, this.state.isConfirmed, this.state.order_id);
                     this.setState({ order_id: result.order_id,
                                     isConfirmed: true}, this.clearCart);
                 },
@@ -163,11 +163,11 @@ export default class Confirmation extends Component {
                 }
                 else if(this.state.isConfirmed)
                 {   
-                    console.log('order is confirmed');
+                    //console.log('order is confirmed');
                     //this.clearCart.bind(this, dispatch);
                     return (
                         <Redirect to={{
-                                            pathname: "checkout/success",
+                                            pathname: process.env.PUBLIC_URL+"/shop/checkout/success",
                                             state: {order_id: this.state.order_id}
                                       }}
                         />

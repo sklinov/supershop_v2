@@ -5,6 +5,7 @@
   "homepage": "http://nonbreakable.space/supershop",
   "dependencies": {
     "axios": ">=0.19.0",
+    "bootstrap": "^4.3.1",
     "react": "^16.8.6",
     "react-accessible-accordion": "^3.0.0",
     "react-cookie": "^4.0.0",
@@ -20,7 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost/supershop/public/",
+  "proxy": "http://localhost:80",
   "eslintConfig": {
     "extends": "react-app"
   },

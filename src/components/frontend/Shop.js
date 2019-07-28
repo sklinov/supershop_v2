@@ -17,7 +17,7 @@ export default class Shop extends Component {
         this.state = {};
     }
     render() {
-        //console.log(this.props.match.url);
+        ////console.log(this.props.match.url);
         
         return (
             <div>

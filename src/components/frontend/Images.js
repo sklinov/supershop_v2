@@ -58,7 +58,7 @@ export default class Images extends Component {
   }
 
   render() {
-    const {product_id, product_name } = this.props;
+    const { product_name } = this.props;
     const { images, imageToShow } = this.state;
     if(images.length > 0 && imageToShow!== undefined) {
       return (

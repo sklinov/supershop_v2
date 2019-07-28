@@ -65,7 +65,7 @@
                     if (move_uploaded_file($_FILES['files']['tmp_name'][$i], $uploadfile)) {
                         $product->image_url = $product->id."_".time()."__".basename($_FILES['files']['name'][$i]);
                         $product->addImageByProductId();
-                        $message .= "Файл ". $_FILES['files']['name'] ." был успешно загружен.\n";
+                        $message .= "Файл был успешно загружен.\n";
                     } 
                     else {
                         $message .= "Ошибка загрузки файла:".$_FILES['files']['error'][$i];

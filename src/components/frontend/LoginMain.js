@@ -31,7 +31,7 @@ export default class LoginMain extends Component {
           }).then(response => response.json())
           .then(
           (result) => {
-              console.log(result.status);
+              //console.log(result.status);
               if(result.status === 'success')
               {
                 this.setState({loggedIn: true, pwIsConfirmed: true});
@@ -84,7 +84,7 @@ export default class LoginMain extends Component {
                                     </div>
                                     <div className="checkout__container checkout__container-m-30 checkout__width-half">
                                     <h5 className="checkout__header">Новый пользователь</h5>
-                                    <Link to= {process.env.PUBLIC_URL+"shop/signup"}>
+                                    <Link to= {process.env.PUBLIC_URL+"/shop/signup"}>
                                     <button type="button" className="button button-primary">Зарегистрироваться</button>
                                     </Link>                        
                                     </div>
@@ -95,7 +95,7 @@ export default class LoginMain extends Component {
                     }
                     else {
                         return (
-                            <Redirect to="/shop/" />
+                            <Redirect to={process.env.PUBLIC_URL+"/shop/"} />
                         )
                     }
                 }

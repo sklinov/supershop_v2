@@ -46,7 +46,7 @@ export default class SignUpMain extends Component {
                 formData.append('phone',phone);
                 formData.append('password',password);
                 
-                console.log(formData);
+                //console.log(formData);
                 
                 const url = process.env.PUBLIC_URL+ "/api/api/users/add.php";
                 fetch(url, {
@@ -65,7 +65,7 @@ export default class SignUpMain extends Component {
                                 name: this.state.name,
                                 phone: this.state.phone,
                                 email: this.state.email};
-                                console.log(payload);
+                                //console.log(payload);
                                 dispatch({
                                     type: 'SIGN_UP_MAIN',
                                     payload: payload
@@ -128,7 +128,7 @@ export default class SignUpMain extends Component {
                     }
                     else {
                         return (
-                            <Redirect to="/shop/" />
+                            <Redirect to={process.env.PUBLIC_URL+"/shop/"} />
                         )
                     }
                 }

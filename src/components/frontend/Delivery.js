@@ -94,8 +94,8 @@ export default class Delivery extends Component {
             <Consumer>
             {
                 value=> {
-                    const { user, dispatch } = value;
-                    const { city, street, building, flat, comment, shippingMethods, shippingMethodsAreLoaded } = this.state;
+                    const { dispatch } = value;
+                    const { city, street, building, flat, shippingMethods, shippingMethodsAreLoaded } = this.state;
                     return (
                         <form>
                         <div className="checkout__row">
