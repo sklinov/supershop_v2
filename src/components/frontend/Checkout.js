@@ -21,18 +21,18 @@ export default class Checkout extends Component {
     toStepTwo = () => {
         if(!this.state.stepTwoActive)
         {
-            this.setState({ stepOneActive: !this.state.stepOneActive,
-                            stepTwoActive: !this.state.stepTwoActive,
-                            stepThreeActive: !this.state.stepThreeActive})
+            this.setState({ stepOneActive: false,
+                            stepTwoActive: true,
+                            stepThreeActive: false})
         }
     }
 
     toStepThree = () => {
         if(!this.state.stepThreeActive)
         {
-            this.setState({ stepOneActive: !this.state.stepOneActive,
-                            stepTwoActive: !this.state.stepTwoActive,
-                            stepThreeActive: !this.state.stepThreeActive})
+            this.setState({ stepOneActive: false,
+                            stepTwoActive: false,
+                            stepThreeActive: true})
         }
     }
 
