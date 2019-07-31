@@ -58,6 +58,7 @@ export default class Delivery extends Component {
             userPayload,
             orderPayload
         });
+        this.props.toStepThree();
     }
 
     fillValues = (value) => {

@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
-import {
-    Accordion,
-    AccordionItem,
-    AccordionItemButton,
-    AccordionItemHeading,
-    AccordionItemPanel
-} from 'react-accessible-accordion';
 
-//import Accordion  from 'react-bootstrap/Accordion'
-
+import Accordion from './Accordion'
+import AccordionItem from './AccordionItem'
 import Login from './Login';
 import SignUp from './SignUp';
 import Delivery from './Delivery';
@@ -18,48 +11,53 @@ export default class Checkout extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cartTotal: 0
+            cartTotal: 0,
+            stepOneActive: true,
+            stepTwoActive: false,
+            stepThreeActive: false
         };
     }
+
+    toStepTwo = () => {
+        if(!this.state.stepTwoActive)
+        {
+            this.setState({ stepOneActive: !this.state.stepOneActive,
+                            stepTwoActive: !this.state.stepTwoActive,
+                            stepThreeActive: !this.state.stepThreeActive})
+        }
+    }
+
+    toStepThree = () => {
+        if(!this.state.stepThreeActive)
+        {
+            this.setState({ stepOneActive: !this.state.stepOneActive,
+                            stepTwoActive: !this.state.stepTwoActive,
+                            stepThreeActive: !this.state.stepThreeActive})
+        }
+    }
+
 
     render() {
         return (
             <div className="category__container">
                 <h1 className="category__header">Оформление заказа</h1>
                 <div className="cart__container">
-                <Accordion>
-                    <AccordionItem>
-                        <AccordionItemHeading>
-                            <AccordionItemButton>
-                                <span className="accordion__number">1.</span> Контактная информация
-                            </AccordionItemButton>
-                        </AccordionItemHeading>
-                        <AccordionItemPanel>
-                            <div className="checkout__row">
-                                <SignUp />
-                                <Login />
-                            </div>
-                        </AccordionItemPanel>
+                
+                <Accordion atomic={true}>
+                    <AccordionItem title="1. Контактная информация" toOpen={this.state.stepOneActive}>
+                        {/* <span className="accordion__number">1.</span> Контактная информация     */}
+                        <div className="checkout__row">
+                            <SignUp toStepTwo={this.toStepTwo}/>
+                            <Login  toStepTwo={this.toStepTwo}/>
+                        </div>
                     </AccordionItem>
-                    <AccordionItem>
-                        <AccordionItemHeading>
-                            <AccordionItemButton>
-                                <span className="accordion__number">2.</span> Информация о доставке
-                            </AccordionItemButton>
-                        </AccordionItemHeading>
-                        <AccordionItemPanel>
-                                <Delivery />
-                        </AccordionItemPanel>
+                    <AccordionItem title="2. Информация о доставке" toOpen={this.state.stepTwoActive}>
+                        {/* <span className="accordion__number">2.</span> Информация о доставке                            */}
+                        <Delivery toStepThree={this.toStepThree}/>
                     </AccordionItem>
-                    <AccordionItem>
-                        <AccordionItemHeading>
-                            <AccordionItemButton>
-                            <span className="accordion__number">3.</span> Подтверждение заказа
-                            </AccordionItemButton>
-                        </AccordionItemHeading>
-                        <AccordionItemPanel>
-                            <Confirmation />
-                        </AccordionItemPanel>
+                    <AccordionItem title="3. Подтверждение заказа" toOpen={this.state.stepThreeActive}>
+                        {/* <span className="accordion__number">3.</span> Подтверждение заказа */}
+                        <Confirmation />
                     </AccordionItem>
                 </Accordion>
                 </div>

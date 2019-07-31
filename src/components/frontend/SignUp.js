@@ -26,6 +26,7 @@ export default class SignUp extends Component {
             type: 'CHECKOUT_SIGN_UP',
             payload: payload
         });
+        this.props.toStepTwo();
     }
     
     render() {

@@ -79,6 +79,7 @@ export default class Login extends Component {
                         return (
                             <div className="checkout__container">
                             <h5 className="checkout__header">Добро пожаловать, {user.name}</h5>
+                            <button type="button" className="button button-primary" onClick={this.props.toStepTwo}>Продолжить</button>
                             </div>
                         )
                     } 
