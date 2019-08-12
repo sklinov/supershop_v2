@@ -45,18 +45,15 @@ export default class Checkout extends Component {
                 
                 <Accordion atomic={true}>
                     <AccordionItem title="1. Контактная информация" toOpen={this.state.stepOneActive}>
-                        {/* <span className="accordion__number">1.</span> Контактная информация     */}
                         <div className="checkout__row">
                             <SignUp toStepTwo={this.toStepTwo}/>
                             <Login  toStepTwo={this.toStepTwo}/>
                         </div>
                     </AccordionItem>
-                    <AccordionItem title="2. Информация о доставке" toOpen={this.state.stepTwoActive}>
-                        {/* <span className="accordion__number">2.</span> Информация о доставке                            */}
+                    <AccordionItem title="2. Информация о доставке" toOpen={this.state.stepTwoActive}>                       
                         <Delivery toStepThree={this.toStepThree}/>
                     </AccordionItem>
                     <AccordionItem title="3. Подтверждение заказа" toOpen={this.state.stepThreeActive}>
-                        {/* <span className="accordion__number">3.</span> Подтверждение заказа */}
                         <Confirmation />
                     </AccordionItem>
                 </Accordion>

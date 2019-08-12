@@ -53,7 +53,9 @@ class AccordionItem extends Component {
   }
 
   onClick = () => {
-    this.setState({ isOpen: !this.state.isOpen });
+    if(this.props.toOpen){
+        this.setState({ isOpen: !this.state.isOpen });
+    } 
   };
 
   render() {
