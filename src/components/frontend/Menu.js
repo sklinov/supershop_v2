@@ -16,7 +16,6 @@ export default class Menu extends Component {
                 { 
                     value => {
                         const { categories } = value;
-                        ////console.log(categories);
                         if(categories === undefined || categories.length === 0) {
                             return <Spinner />
                         } else {
@@ -28,7 +27,6 @@ export default class Menu extends Component {
                     }
     
                 }
-
                </Consumer> 
             </div>
         )

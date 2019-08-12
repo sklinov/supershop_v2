@@ -16,9 +16,7 @@ export default class Shop extends Component {
         super(props);
         this.state = {};
     }
-    render() {
-        ////console.log(this.props.match.url);
-        
+    render() {      
         return (
             <div>
                     <Header match={this.props.match}/>

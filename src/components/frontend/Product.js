@@ -16,8 +16,17 @@ export default class Product extends Component {
           buttonLabel: "Купить"
         };
       }
-    componentWillMount() {
+
+    componentWillMount() { 
       this.setState({productId : this.props.match.params.id});     
+    }
+
+    componentDidUpdate() {
+      if(this.props.match.params.id !== undefined && 
+         this.props.match.params.id !== this.state.productId)
+      {
+        this.setState({productId : this.props.match.params.id});
+      }
     }
 
     addToCart = (dispatch, product, e ) => {
@@ -31,7 +40,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const { buttonLabel } = this.state;       
+        const { buttonLabel, productId } = this.state;       
         return (
         <Consumer>
         {
@@ -40,15 +49,13 @@ export default class Product extends Component {
                 if(products === undefined || products.length === 0) {
                     return <Spinner />
                 } else {
-
-                    const product = products.find(prod => prod.id === this.state.productId)
-                  
+                    const product = products.find(prod => prod.id === this.state.productId)                  
                     return (
                         <React.Fragment>
                         <div className="product__container">
                             <div className="product__column">
                             <div className="product__image">
-                                <Images product_id={product.id} product_name={product.name} />
+                                <Images product_id={productId} product_name={product.name} />
                             </div>
                             </div>
                             <div className="product__column">

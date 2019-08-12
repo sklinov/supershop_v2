@@ -11,6 +11,6 @@ export const errors = {
     cityTooShort: 'Название города должно быть минимум из двух букв',
     streetTooShort: 'Название улицы должно быть минимум из трех букв',
     emailNotValid: 'E-mail адрес не соответствует формату',
-
+    shippingEmpty: 'Выберите способ доставки',
 
 }

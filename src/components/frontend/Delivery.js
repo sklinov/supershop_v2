@@ -20,6 +20,7 @@ export default class Delivery extends Component {
                 street: false,
                 building: false,
                 flat: false,
+                shippingMethodId: false,
             },
             formIsValid: false
         };
@@ -40,7 +41,7 @@ export default class Delivery extends Component {
     }
 
     handleChange = (e) => {
-        e.preventDefault();
+        //e.preventDefault();
         const value = this.leftSideTrim(e.target.value);
         const { validationErrors } = this.state;
         this.setState({ validationErrors: {...validationErrors, [e.target.name]: false} }); 
@@ -89,14 +90,18 @@ export default class Delivery extends Component {
     }
 
     validateForm = () => {
-        const { city, street, building, validationErrors } = this.state;
+        const { city, street, building, shippingMethodId, validationErrors } = this.state;
         if(
             city.length > 0 &&
             street.length > 0 &&
             building.length > 0 &&
+            shippingMethodId > 0 && 
             Object.values(validationErrors).every(error => error === false)
         ) {
             this.setState({formIsValid: true}); 
+        }
+        else if (shippingMethodId === 0) {
+            this.setState({ validationErrors: {...validationErrors, shippingMethodId: errors.shippingEmpty}, formIsValid: false }); 
         }
         else {
             this.setState({formIsValid: false}); 
@@ -198,7 +203,9 @@ export default class Delivery extends Component {
                                                 </label>
                                             )
                                         })
+                                        
                                     }
+                                    <div className="validation__error">{validationErrors.shipping}</div>
                                 </div>
                                 <div className="checkout__container checkout__width-3">
                                     <h5 className="checkout__header">Комментарий к заказу</h5>

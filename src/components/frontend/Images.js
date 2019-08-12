@@ -8,19 +8,25 @@ export default class Images extends Component {
     this.state = {
       images: [],
       isLoaded: false,
-      imageToShow: {}
+      imageToShow: {},
+      productId: 0
     }
   }
 
   getImages() {
     const {isLoaded} = this.state;
-    if(this.props.product_id !== undefined && !isLoaded) {  
+    if(this.props.product_id !== undefined 
+       && (!isLoaded 
+            || 
+           this.state.productId !== this.props.product_id) ) {  
         const url = process.env.PUBLIC_URL+ "/api/api/products/getimages.php?id="+this.props.product_id;
         fetch(url,{ method: "GET" })
         .then(response => response.json())
         .then(
         (result) => {  
-                this.setState({images: result.data, isLoaded: true}, this.initImage);
+                this.setState({images: result.data, 
+                               isLoaded: true,
+                               productId: this.props.product_id}, this.initImage);
         },
         (error) => {
         console.log(error);
