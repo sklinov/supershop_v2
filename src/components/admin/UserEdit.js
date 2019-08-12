@@ -88,7 +88,7 @@ export default class UserEdit extends Component {
         .then(response => response.json())
         .then(
             (result => {
-                console.log(result);
+                //console.log(result);
             },
             (error) => {
                 console.log(error);

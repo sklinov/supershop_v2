@@ -118,7 +118,7 @@ export default class OrderEdit extends Component {
         .then(response => response.json())
         .then(
         (result) => {
-            console.log(result);
+            //console.log(result);
             this.getOrderInfo();
         },
         (error) => {
@@ -176,7 +176,7 @@ export default class OrderEdit extends Component {
         formData.append('comment',this.state.comment);
         formData.append('shipping',JSON.stringify(this.state.shipping));
         
-        console.log(formData);
+        //console.log(formData);
 
         const url = process.env.PUBLIC_URL+ "/api/api/orders/edit.php";
         fetch(url, {
@@ -186,7 +186,7 @@ export default class OrderEdit extends Component {
         .then(response => response.json())
         .then(
             (result => {
-                console.log(result);
+                //console.log(result);
             },
             (error) => {
                 console.log(error);

@@ -51,7 +51,7 @@ export default class Orders extends Component {
         .then(response => response.json())
         .then(
         (result) => {
-            console.log(result);
+            //console.log(result);
             this.getOrders();
         },
         (error) => {

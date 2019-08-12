@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Consumer} from '../../Context'
 import {Redirect} from 'react-router-dom'
 
+import {errors} from './Errors'
+
 
 export default class SignUpMain extends Component {
     constructor(props) {
@@ -12,13 +14,89 @@ export default class SignUpMain extends Component {
             phone: "",
             password: "",
             passwordconfirm: "",
-            pwIsConfirmed: true
+            pwIsConfirmed: true,
+            validationErrors: {
+                name: false,
+                email: false,
+                password: false,
+                passwordconfirm: false,
+            },
+            formIsValid: false
         };
     }
+
     handleChange = (e) => {
-        this.setState({
-            [e.target.name] : e.target.value
-        })
+        e.preventDefault();
+        const value = this.leftSideTrim(e.target.value);
+        const { validationErrors } = this.state;
+        this.setState({ validationErrors: {...validationErrors, [e.target.name]: false} }); 
+        this.setState({ [e.target.name] : value });
+        this.validateForm();
+    }
+
+    leftSideTrim = (value) => {
+        if(value === null) 
+        { 
+            return value;
+        }
+        return value.replace(/^\s+/g, '');
+      }
+
+
+    validateField = (e) => {
+        e.preventDefault();
+        const { value, name } = e.target;
+        const { validationErrors } = this.state;
+        switch(name) {
+            case name.match(/(Name)/i) && name :
+                if(value.length === 0) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.nameEmpty} }); 
+                }
+                else if(value.length <3) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.nameTooShort} }); 
+                }
+                break;
+            case name.match(/(Email)/i) && name:
+                if(value.length === 0) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.emailEmpty} }); 
+                }
+                else if(!value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.emailNotValid} }); 
+                }
+                break;
+            case name.match(/(password)/i) && name:
+                if(value.length === 0) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.passwordEmpty} }); 
+                }
+                break;
+            case name.match(/(Phone)/i) && name :
+                if(value.length === 0) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.phoneEmpty} }); 
+                }
+                else if(!value.match(/[+][7]\d{10}/)) {
+                    this.setState({ validationErrors: {...validationErrors, [name]: errors.phoneNotValid} }); 
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    validateForm = () => {
+        const { name, email, phone, password, passwordconfirm, validationErrors } = this.state;
+        if(
+            name.length > 0 &&
+            email.length > 0 &&
+            phone.length > 0 &&
+            password.length > 0 &&
+            passwordconfirm.length > 0 &&
+            Object.values(validationErrors).every(error => error === false)
+        ) {
+            this.setState({formIsValid: true}); 
+        }
+        else {
+            this.setState({formIsValid: false}); 
+        }
     }
 
     checkPassword = (e) => {
@@ -46,7 +124,7 @@ export default class SignUpMain extends Component {
                 formData.append('phone',phone);
                 formData.append('password',password);
                 
-                console.log(formData);
+                //console.log(formData);
                 
                 const url = process.env.PUBLIC_URL+ "/api/api/users/add.php";
                 fetch(url, {
@@ -65,7 +143,7 @@ export default class SignUpMain extends Component {
                                 name: this.state.name,
                                 phone: this.state.phone,
                                 email: this.state.email};
-                                console.log(payload);
+                                //console.log(payload);
                                 dispatch({
                                     type: 'SIGN_UP_MAIN',
                                     payload: payload
@@ -82,7 +160,7 @@ export default class SignUpMain extends Component {
     }
     
     render() {
-        const {pwIsConfirmed} = this.state;
+        const {pwIsConfirmed, validationErrors, formIsValid} = this.state;
         return (
             <Consumer>
             {
@@ -98,17 +176,21 @@ export default class SignUpMain extends Component {
                                     <div className="checkout__row">
                                         <div className="checkout__container-mr-30">
                                             <label className="checkout__label">Контактное лицо (ФИО):</label><br />
-                                            <input className="checkout__input" type="text" name="name" onChange={this.handleChange}></input><br /><br />
+                                            <input className="checkout__input" type="text" name="name" onChange={this.handleChange} onBlur={this.validateField}></input><br /><br />
+                                                <div className="validation__error">{validationErrors.name}</div>
 
                                             <label className="checkout__label">E-mail</label><br />
-                                            <input className="checkout__input" type="email" name="email" onChange={this.handleChange}></input><br /><br />
+                                            <input className="checkout__input" type="email" name="email" onChange={this.handleChange} onBlur={this.validateField}></input><br /><br />
+                                                <div className="validation__error">{validationErrors.email}</div>
 
                                             <label className="checkout__label">Контактный телефон</label><br />
-                                            <input className="checkout__input" type="text" name="phone" onChange={this.handleChange}></input><br /><br />
+                                            <input className="checkout__input" type="text" name="phone" onChange={this.handleChange} onBlur={this.validateField}></input><br /><br />
+                                                <div className="validation__error">{validationErrors.phone}</div>
                                         </div>
                                         <div>
                                             <label className="checkout__label">Пароль:</label><br />
-                                            <input className="checkout__input" type="password" name="password" onChange={this.handleChange} onBlur={this.checkPassword}></input><br /><br />
+                                            <input className="checkout__input" type="password" name="password" onChange={this.handleChange} onBlur={this.checkPassword && this.validateField}></input><br /><br />
+                                                <div className="validation__error">{validationErrors.password}</div>
 
                                             <label className="checkout__label">Подтвердите пароль:</label><br />
                                             <input className="checkout__input" type="password" name="passwordconfirm"  onChange={this.handleChange} onBlur={this.checkPassword}></input><br /><br />
@@ -119,7 +201,7 @@ export default class SignUpMain extends Component {
                                             }
                                         </div>
                                     </div>
-                                    <button type="button" className="button button-primary" onClick={this.signUp.bind(this, dispatch)}>Продолжить</button>
+                                    <button type="button" className="button button-primary" disabled={!formIsValid} onClick={this.signUp.bind(this, dispatch)}>Продолжить</button>
                                 </form>
                             </div>
                             </div>
@@ -128,7 +210,7 @@ export default class SignUpMain extends Component {
                     }
                     else {
                         return (
-                            <Redirect to="/shop/" />
+                            <Redirect to={process.env.PUBLIC_URL+"/shop/"} />
                         )
                     }
                 }

@@ -19,6 +19,9 @@
     color: white;
     text-transform: uppercase
 }
+.button:disabled {
+    background-color: #999999;
+}
 
 .button-secondary{
     background-color: black;

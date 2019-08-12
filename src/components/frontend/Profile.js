@@ -62,7 +62,7 @@ export default class Profile extends Component {
         .then(response => response.json())
         .then(
             (result) => {
-                console.log(result);
+                //console.log(result);
                 let payload = {
                    id: state.id,
                    name: state.name,
@@ -73,7 +73,7 @@ export default class Profile extends Component {
                    building: state.building,
                    flat: state.flat
                 };
-                console.log(payload);
+                //console.log(payload);
                 dispatch({
                     type: 'USER_EDIT',
                     payload: payload 
@@ -106,7 +106,7 @@ export default class Profile extends Component {
     }
 
     getUserOrders() {
-        console.log(this.state.id);
+        //console.log(this.state.id);
         const url = process.env.PUBLIC_URL+ "/api/api/orders/getuserorders.php?id_user="+this.state.id;
         fetch(url,{ method: "GET" })
         .then(response => response.json())
@@ -140,7 +140,7 @@ export default class Profile extends Component {
             <Consumer>
                 {
                     value => {
-                        const {loggedIn, user, dispatch} = value;
+                        const {loggedIn, dispatch} = value;
                         const { id, name, phone, email, city, street, building, flat, orders, pwIsConfirmed} = this.state;
 
 
@@ -221,6 +221,12 @@ export default class Profile extends Component {
                                                     )
                                                 })
                                             }
+                                            {
+                                                orders.length === 0 && 
+                                                <div>
+                                                    <h5 className="checkout__header">У вас пока нет заказов</h5>
+                                                </div>
+                                            }
                                             </tbody>
                                             </table>
 
@@ -232,7 +238,7 @@ export default class Profile extends Component {
                         }  
                         else {
                             return (
-                                <Redirect to="login/" />
+                                <Redirect to={process.env.PUBLIC_URL+"/shop/login/"} />
                             )
                         }  
                     }

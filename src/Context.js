@@ -9,7 +9,7 @@ const reducer = (state, action) => {
   //let loggedIn;
   switch(action.type) {
     case 'ADD_TO_CART':
-        //console.log(state);
+        ////console.log(state);
         inCart = groupProducts(state.inCart,action.payload);
         return {
           ...state,
@@ -44,17 +44,20 @@ const reducer = (state, action) => {
           inCartTotal: 0
         }
     case 'USER_LOGIN': 
-        console.log("dispatch");
         user = action.payload;
         return {
           ...state,
           user: user,
           loggedIn: true
         };
+    case 'USER_LOGOUT':
+        return {
+          ...state,
+          user: [],
+          loggedIn: false
+        }
     case 'USER_EDIT': 
-        
         user = action.payload;
-        console.log(user);
         return {
           ...state,
           user: user
@@ -183,7 +186,6 @@ class Provider extends Component {
     
     getAllCategories = () => {
       const url = process.env.PUBLIC_URL+`/api/api/categories/categories.php`; 
-      //console.log(url);
       axios.get(url)
         .then(res => {
         const categories = res.data.data;

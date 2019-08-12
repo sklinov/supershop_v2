@@ -1,0 +1,47 @@
+.accordion {
+    
+  }
+
+  .accordion .accordion-item .title {
+    font-family: 'Supermolot Bold';
+    font-size: 24px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    -webkit-transition: 0.4s;
+    -o-transition: 0.4s;
+    transition: 0.4s;
+  }
+  /* .accordion .accordion-item .title:after {
+    content: '\2795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+  } */
+  .accordion .accordion-item .panel {
+    max-height: 0;
+    -webkit-transition: max-height 0.15s ease-out;
+    -o-transition: max-height 0.15s ease-out;
+    transition: max-height 0.15s ease-out;
+    overflow: hidden;
+  }
+  .accordion .accordion-item.active .title {
+    background-color: #222429;
+    color: white;
+  }
+  /* .accordion .accordion-item.active .title:after {
+    content: '\2796';
+  } */
+  .accordion .accordion-item.active .panel {
+    padding: 30px;
+    max-height: max-content;
+    -webkit-transition: max-height 0.25s ease-in;
+    -o-transition: max-height 0.25s ease-in;
+    transition: max-height 0.25s ease-in;
+  }

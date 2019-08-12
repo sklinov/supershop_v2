@@ -22,7 +22,7 @@ export default class Categories extends Component {
           }).then(response => response.json())
           .then(
           (result) => {
-              console.log(result);
+              //console.log(result);
                dispatch({
                  type: 'CATEGORY_ADD',
                  payload : payload
@@ -35,7 +35,7 @@ export default class Categories extends Component {
 
     deleteCategory = (dispatch, id, e) => {
         e.preventDefault();
-        console.log(id);
+        //console.log(id);
         let payload = {id : id};
         const url = process.env.PUBLIC_URL+ "/api/api/categories/delete.php";
         fetch(url,{
@@ -44,7 +44,7 @@ export default class Categories extends Component {
           }).then(response => response.json())
           .then(
           (result) => {
-              console.log(result);
+              //console.log(result);
               dispatch({
                 type: 'CATEGORY_DELETE',
             });       
@@ -69,7 +69,7 @@ export default class Categories extends Component {
                 {
                     value => {
                         const { categories, dispatch } = value;
-                        //console.log(categories);
+                        ////console.log(categories);
                         if(categories === undefined || categories.length === 0) {
                             return <Spinner />
                         } else {

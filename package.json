@@ -6,7 +6,6 @@
   "dependencies": {
     "axios": ">=0.19.0",
     "react": "^16.8.6",
-    "react-accessible-accordion": "^3.0.0",
     "react-cookie": "^4.0.0",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
@@ -20,7 +19,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost/supershop/public/",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -36,5 +34,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "http-proxy-middleware": "^0.19.1"
+  }
 }
