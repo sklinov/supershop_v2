@@ -14,7 +14,7 @@ export default class ProductEdit extends Component {
             price: 0,
             old_price: 0,
             quantity: 0,
-            badge_id: 0,
+            badge_id: "7",
             badges: [],
             options: [],
             images: [],
