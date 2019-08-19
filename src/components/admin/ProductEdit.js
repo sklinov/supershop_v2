@@ -202,8 +202,6 @@ export default class ProductEdit extends Component {
 
     componentDidMount() {
         let value = this.context;
-        //console.log(this.state.isNew);
-        //console.log(this.props.match.params.id);
         if(this.props.match.params.id !== 'new')
         {
             this.fillValues(value);

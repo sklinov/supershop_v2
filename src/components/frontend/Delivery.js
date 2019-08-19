@@ -44,9 +44,10 @@ export default class Delivery extends Component {
         //e.preventDefault();
         const value = this.leftSideTrim(e.target.value);
         const { validationErrors } = this.state;
-        this.setState({ validationErrors: {...validationErrors, [e.target.name]: false} }); 
-        this.setState({ [e.target.name] : value });
-        this.validateForm();
+        this.setState({ validationErrors: {...validationErrors, [e.target.name]: false} });  
+        this.setState({ [e.target.name] : value }, 
+                                                  this.validateForm);
+        
     }
 
     leftSideTrim = (value) => {
@@ -100,9 +101,9 @@ export default class Delivery extends Component {
         ) {
             this.setState({formIsValid: true}); 
         }
-        else if (shippingMethodId === 0) {
-            this.setState({ validationErrors: {...validationErrors, shippingMethodId: errors.shippingEmpty}, formIsValid: false }); 
-        }
+        // else if (shippingMethodId === 0) {
+        //     this.setState({ validationErrors: {...validationErrors, shippingMethodId: errors.shippingEmpty}, formIsValid: false }); 
+        // }
         else {
             this.setState({formIsValid: false}); 
         }
@@ -167,7 +168,7 @@ export default class Delivery extends Component {
             {
                 value=> {
                     const { dispatch } = value;
-                    const { city, street, building, flat, shippingMethods, shippingMethodsAreLoaded, validationErrors, formIsValid } = this.state;
+                    const { city, street, building, flat, shippingMethods, shippingMethodsAreLoaded, validationErrors, formIsValid , shippingMethodId} = this.state;
                     return (
                         <form>
                         <div className="checkout__row">
@@ -205,7 +206,10 @@ export default class Delivery extends Component {
                                         })
                                         
                                     }
-                                    <div className="validation__error">{validationErrors.shipping}</div>
+                                    {
+                                        shippingMethodId === 0 && <div className="validation__error">{errors.shippingEmpty}</div>
+                                    }
+                                    
                                 </div>
                                 <div className="checkout__container checkout__width-3">
                                     <h5 className="checkout__header">Комментарий к заказу</h5>
